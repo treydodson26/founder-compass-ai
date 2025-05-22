@@ -7,7 +7,7 @@ import { FormattedCurrency } from "@/components/formatted-currency";
 import { Founder } from "@/data/types";
 import { TimeSince } from "./time-since";
 import { Button } from "./ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, LibraryIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface FounderHeaderProps {
@@ -27,15 +27,27 @@ export function FounderHeader({ founder }: FounderHeaderProps) {
   
   return (
     <div className="bg-card p-6 rounded-lg shadow-sm border mb-6">
-      <Button 
-        variant="outline" 
-        size="sm" 
-        className="mb-4" 
-        onClick={() => navigate("/")}
-      >
-        <ArrowLeft className="h-4 w-4 mr-2" />
-        Back to all founders
-      </Button>
+      <div className="flex flex-wrap gap-4 justify-between items-center mb-4">
+        <Button 
+          variant="outline" 
+          size="sm"
+          onClick={() => navigate("/")}
+        >
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Back to all founders
+        </Button>
+        
+        <div className="flex gap-2">
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => navigate(`/resources?founder=${founder.id}`)} 
+          >
+            <LibraryIcon className="h-4 w-4 mr-2" />
+            View Resources
+          </Button>
+        </div>
+      </div>
       
       <div className="flex flex-col md:flex-row justify-between gap-6 items-start md:items-center">
         <div className="flex items-center gap-4">

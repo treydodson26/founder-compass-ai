@@ -5,6 +5,19 @@ export type StatusType = 'On Track' | 'Needs Attention' | 'At Risk';
 
 export type ResourceType = 'Document' | 'Call Recording' | 'Email Thread' | 'Meeting Note' | 'Metric';
 
+export interface Resource {
+  id: string;
+  founderId: string;
+  title: string;
+  description: string;
+  type: ResourceType;
+  fileUrl?: string;
+  thumbnailUrl?: string;
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
+  tags: string[];
+}
+
 export interface Founder {
   id: string;
   name: string;
@@ -28,6 +41,7 @@ export interface Founder {
     growthRate: number;
   };
   milestones: Milestone[];
+  resourceList?: Resource[];
 }
 
 export interface Milestone {
