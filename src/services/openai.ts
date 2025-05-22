@@ -1,5 +1,6 @@
 
 import { Founder } from '@/data/types';
+import type { Message } from '@/hooks/use-ai-chat';
 
 // This service handles OpenAI API interactions through Supabase Edge Functions
 export const openaiService = {
@@ -9,7 +10,7 @@ export const openaiService = {
   sendMessage: async (
     message: string, 
     founder: Founder, 
-    conversationHistory: Array<{ role: 'user' | 'ai', content: string }>
+    conversationHistory: Message[]
   ) => {
     try {
       // Format the conversation history for the API
