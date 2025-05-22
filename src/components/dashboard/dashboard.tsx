@@ -2,7 +2,6 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
-import { founders } from "@/data/mockData";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { StatusIndicator } from "@/components/status-indicator";
 import { StageBadge } from "@/components/stage-badge";
@@ -17,27 +16,32 @@ import {
 } from "lucide-react";
 import { FormattedCurrency } from "@/components/formatted-currency";
 import { TimeSince } from "@/components/time-since";
+import { pearVCFounders, getActiveFounders } from "@/data/pearVCFounders";
 
 export function Dashboard() {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
   
-  // Calculate some metrics for the dashboard
-  const totalFounders = founders.length;
-  const healthyFounders = founders.filter(f => f.status === "On Track").length;
+  // Get active founders
+  const activeFounders = getActiveFounders();
+  
+  // Calculate metrics for the dashboard
+  const totalFounders = pearVCFounders.length;
+  const healthyFounders = pearVCFounders.filter(f => f.status === "On Track").length;
   const healthScore = Math.round((healthyFounders / totalFounders) * 100);
   
+  // Calculate total ARR
+  const totalARR = pearVCFounders.reduce((sum, founder) => sum + founder.arr, 0);
+  
   // Recent activity: founders with recent interactions
-  const recentFounders = [...founders]
-    .sort((a, b) => new Date(b.lastInteraction).getTime() - new Date(a.lastInteraction).getTime())
-    .slice(0, 5);
+  const recentFounders = activeFounders.slice(0, 5);
   
   return (
     <div className="flex flex-col h-full">
       <div className="border-b border-border/40">
         <div className="container py-6">
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Pear VC Portfolio Dashboard</h1>
           <p className="text-muted-foreground">
-            Welcome back! Here's an overview of your founders and activities.
+            Welcome back! Here's an overview of your portfolio companies.
           </p>
         </div>
       </div>
@@ -48,7 +52,7 @@ export function Dashboard() {
           <Card className="hover:shadow-md transition-all">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
-                Total Founders
+                Total Portfolio Companies
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -61,7 +65,7 @@ export function Dashboard() {
                   <div className="text-xs text-muted-foreground">
                     <span className="text-green-500 inline-flex items-center">
                       <ArrowUpIcon className="h-3 w-3 mr-1" />
-                      2 new this month
+                      5 new this quarter
                     </span>
                   </div>
                 </div>
@@ -73,7 +77,7 @@ export function Dashboard() {
           <Card className="hover:shadow-md transition-all">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
-                Health Score
+                Portfolio Health Score
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -100,7 +104,7 @@ export function Dashboard() {
           <Card className="hover:shadow-md transition-all">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
-                Total ARR
+                Total Portfolio ARR
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -110,12 +114,12 @@ export function Dashboard() {
                 </div>
                 <div>
                   <div className="text-3xl font-bold">
-                    <FormattedCurrency value={founders.reduce((sum, founder) => sum + founder.arr, 0)} />
+                    <FormattedCurrency value={totalARR} />
                   </div>
                   <div className="text-xs text-muted-foreground">
                     <span className="text-green-500 inline-flex items-center">
                       <ArrowUpIcon className="h-3 w-3 mr-1" />
-                      18% from last month
+                      22% from last quarter
                     </span>
                   </div>
                 </div>
@@ -130,7 +134,7 @@ export function Dashboard() {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <ActivityIcon className="h-5 w-5 mr-2" />
-                Recent Founder Activity
+                Recent Portfolio Activity
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -144,10 +148,12 @@ export function Dashboard() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
                         <p className="font-medium truncate">{founder.name}</p>
+                        <p className="text-sm text-muted-foreground truncate">({founder.companyName})</p>
+                      </div>
+                      <div className="flex items-center gap-2 mt-1">
                         <StageBadge stage={founder.stage} />
                         <StatusIndicator status={founder.status} />
                       </div>
-                      <p className="text-sm text-muted-foreground truncate">{founder.companyName}</p>
                     </div>
                     <div className="text-xs text-muted-foreground whitespace-nowrap">
                       <TimeSince date={founder.lastInteraction} />
@@ -173,12 +179,12 @@ export function Dashboard() {
               
               <div className="mt-4 space-y-2">
                 <div className="bg-muted/50 p-2 rounded text-sm border-l-4 border-blue-500">
-                  <p className="font-medium">Acme Co Meeting</p>
-                  <p className="text-xs text-muted-foreground">3:00 PM - 4:00 PM</p>
+                  <p className="font-medium">Pear VC Demo Day</p>
+                  <p className="text-xs text-muted-foreground">10:00 AM - 2:00 PM</p>
                 </div>
                 <div className="bg-muted/50 p-2 rounded text-sm border-l-4 border-emerald-500">
-                  <p className="font-medium">Growth Strategy Session</p>
-                  <p className="text-xs text-muted-foreground">5:00 PM - 6:00 PM</p>
+                  <p className="font-medium">Portfolio Review</p>
+                  <p className="text-xs text-muted-foreground">3:00 PM - 5:00 PM</p>
                 </div>
               </div>
             </CardContent>
