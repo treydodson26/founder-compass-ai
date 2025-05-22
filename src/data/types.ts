@@ -12,6 +12,7 @@ export interface Resource {
   description: string;
   type: ResourceType;
   fileUrl?: string;
+  fileType?: string;
   thumbnailUrl?: string;
   createdAt: string; // ISO date string
   updatedAt: string; // ISO date string
