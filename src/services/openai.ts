@@ -28,7 +28,21 @@ export const openaiService = {
           Provide helpful insights and advice based on this context.`
       };
 
-      // Make the API call to the Supabase Edge Function
+      // For development/testing purposes, return a mock response
+      // This avoids the need for the actual API endpoint to be deployed
+      console.log('Sending message to OpenAI:', message);
+      console.log('System message:', systemMessage);
+      console.log('Conversation history:', formattedHistory);
+      
+      // Instead of making an API call, return a mock response
+      return `I'm a simulated AI response for testing purposes. You asked: "${message}". 
+      
+As an AI assistant with access to ${founder.name}'s information, I can tell you they are at ${founder.stage} stage with ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact' }).format(founder.arr)} ARR. 
+      
+I have access to ${founder.resources.callRecordings} call recordings, ${founder.resources.emailThreads} email threads, and ${founder.resources.meetingNotes} meeting notes that could provide insights about their business journey.`;
+
+      /* 
+      // This is the actual API code - uncomment when the edge function is deployed
       const response = await fetch('/api/openai', {
         method: 'POST',
         headers: {
@@ -59,6 +73,7 @@ export const openaiService = {
 
       const data = await response.json();
       return data.response;
+      */
     } catch (error) {
       console.error('Error calling OpenAI:', error);
       throw error;
