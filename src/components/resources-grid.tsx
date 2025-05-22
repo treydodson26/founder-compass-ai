@@ -7,15 +7,15 @@ import { Search } from "lucide-react";
 import { resources } from "@/data/mockResources";
 import { Button } from "@/components/ui/button";
 
+// Define the extended resource type that includes "All"
+type FilterType = ResourceType | "All";
+
 interface ResourcesGridProps {
   founderIdFilter?: string;
-  resourceTypeFilter?: ResourceType;
+  resourceTypeFilter?: FilterType; // Updated this type to accept "All"
   limit?: number;
   className?: string;
 }
-
-// Define the extended resource type that includes "All"
-type FilterType = ResourceType | "All";
 
 export function ResourcesGrid({ founderIdFilter, resourceTypeFilter, limit, className }: ResourcesGridProps) {
   const [searchQuery, setSearchQuery] = useState("");
