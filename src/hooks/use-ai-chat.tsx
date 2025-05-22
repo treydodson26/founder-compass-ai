@@ -25,7 +25,8 @@ export function useAiChat(founder: Founder) {
       setIsLoading(true);
       
       // Add user message
-      const updatedMessages = [...messages, { role: 'user', content: prompt }];
+      const userMessage: Message = { role: 'user', content: prompt };
+      const updatedMessages = [...messages, userMessage];
       setMessages(updatedMessages);
       
       // Call OpenAI via our service
@@ -36,7 +37,8 @@ export function useAiChat(founder: Founder) {
       );
       
       // Add AI response
-      setMessages([...updatedMessages, { role: 'ai', content: aiResponse }]);
+      const aiMessage: Message = { role: 'ai', content: aiResponse };
+      setMessages([...updatedMessages, aiMessage]);
     } catch (error) {
       console.error('Error sending message:', error);
       toast({
