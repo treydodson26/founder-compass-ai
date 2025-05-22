@@ -16,6 +16,7 @@ interface ResourcesGridProps {
 
 export function ResourcesGrid({ founderIdFilter, resourceTypeFilter, limit, className }: ResourcesGridProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  // Define a proper type for selectedType that includes "All"
   const [selectedType, setSelectedType] = useState<ResourceType | "All">(resourceTypeFilter || "All");
   
   const resourceTypes = ["All", "Document", "Call Recording", "Email Thread", "Meeting Note"] as const;
