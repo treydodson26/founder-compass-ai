@@ -1,12 +1,14 @@
 
 import React from "react";
+import { format } from "date-fns";
 
 interface TimeSinceProps {
   date: string;
   className?: string;
+  useActualDate?: boolean;
 }
 
-export function TimeSince({ date, className }: TimeSinceProps) {
+export function TimeSince({ date, className, useActualDate = false }: TimeSinceProps) {
   const getTimeSince = (dateStr: string) => {
     const now = new Date();
     const past = new Date(dateStr);
@@ -21,5 +23,13 @@ export function TimeSince({ date, className }: TimeSinceProps) {
     return `${Math.floor(diffDays / 365)} years ago`;
   };
 
-  return <span className={className}>{getTimeSince(date)}</span>;
+  const formatActualDate = (dateStr: string) => {
+    return format(new Date(dateStr), "MMMM do yyyy");
+  };
+
+  return (
+    <span className={className}>
+      {useActualDate ? formatActualDate(date) : getTimeSince(date)}
+    </span>
+  );
 }

@@ -73,11 +73,15 @@ export function FounderCard({ founder, className }: FounderCardProps) {
           </div>
           <div>
             <p className="text-xs text-muted-foreground mb-1">First Contact</p>
-            <p className="text-sm">{daysSinceFirstInteraction()} days ago</p>
+            <p className="text-sm">
+              <TimeSince date={founder.firstInteraction} useActualDate={true} />
+            </p>
           </div>
           <div>
             <p className="text-xs text-muted-foreground mb-1">Last Interaction</p>
-            <p className="text-sm"><TimeSince date={founder.lastInteraction} /></p>
+            <p className="text-sm">
+              <TimeSince date={founder.lastInteraction} useActualDate={true} />
+            </p>
           </div>
         </div>
       </CardContent>
