@@ -22,7 +22,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           <SidebarHeader className="border-b border-sidebar-border/30">
             <div className="px-3 py-6 flex flex-col items-center justify-center">
               <img 
-                src="/lovable-uploads/Pear_VC_logo.svg"
+                src="/lovable-uploads/6f2dd2ee-c441-463c-b6e1-483710739210.png"
                 alt="Pear VC"
                 className="h-12 w-auto mb-2"
                 onError={(e) => {
