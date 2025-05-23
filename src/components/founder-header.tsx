@@ -29,10 +29,10 @@ export function FounderHeader({ founder }: FounderHeaderProps) {
     <div className="bg-uber-black p-6 rounded-lg shadow-md border-uber-dark-grey/20 mb-6 text-white">
       <div className="flex flex-wrap gap-4 justify-between items-center mb-4">
         <Button 
-          variant="outline" 
+          variant="secondary" 
           size="sm"
           onClick={() => navigate("/")}
-          className="border-white/20 hover:bg-uber-dark-grey text-white hover:text-white"
+          className="bg-uber-dark-grey hover:bg-uber-dark-grey/80 text-white hover:text-white border-none"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to all founders
@@ -40,10 +40,10 @@ export function FounderHeader({ founder }: FounderHeaderProps) {
         
         <div className="flex gap-2">
           <Button 
-            variant="outline" 
+            variant="secondary" 
             size="sm"
             onClick={() => navigate(`/resources?founder=${founder.id}`)}
-            className="border-white/20 hover:bg-uber-dark-grey text-white hover:text-white" 
+            className="bg-uber-dark-grey hover:bg-uber-dark-grey/80 text-white hover:text-white border-none"
           >
             <LibraryIcon className="h-4 w-4 mr-2" />
             View Resources
