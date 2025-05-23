@@ -20,9 +20,9 @@ export function FounderAIChat({ founder }: FounderAIChatProps) {
 
   return (
     <Card className="overflow-hidden">
-      <CardHeader className="flex flex-row items-center justify-between pb-2 border-b">
+      <CardHeader className="flex flex-row items-center justify-between pb-2 border-b border-bella-dark-grey/10">
         <CardTitle className="flex items-center gap-2">
-          <Bot className="h-5 w-5 text-uber-green" />
+          <Bot className="h-5 w-5 text-bella-gold" />
           {founder.name}'s AI Assistant
         </CardTitle>
         <Button 

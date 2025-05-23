@@ -6,19 +6,19 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-uber-green focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-[18px] [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bella-gold focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-[18px] [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-uber-green text-white hover:bg-uber-green/90",
+        default: "bg-bella-navy text-white hover:bg-bella-navy/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-uber-dark-grey/20 bg-transparent text-white hover:bg-uber-dark-grey/80 hover:text-white",
+          "border border-bella-dark-grey/20 bg-transparent text-bella-navy hover:bg-bella-grey hover:text-bella-navy",
         secondary:
-          "bg-uber-dark-grey text-white hover:bg-uber-dark-grey/80",
-        ghost: "hover:bg-uber-dark-grey/20 hover:text-white",
-        link: "text-uber-green underline-offset-4 hover:underline",
+          "bg-bella-gold text-bella-navy hover:bg-bella-gold/80",
+        ghost: "hover:bg-bella-grey hover:text-bella-navy",
+        link: "text-bella-navy underline-offset-4 hover:underline",
       },
       size: {
         default: "h-10 px-4 py-2",

@@ -11,7 +11,7 @@ export function ReferenceTag({ children, className }: ReferenceTagProps) {
   return (
     <span
       className={cn(
-        "bg-uber-green/5 text-uber-green rounded-md px-2 py-1 text-xs font-medium border border-uber-green/10 inline-flex items-center gap-1.5 whitespace-nowrap",
+        "bg-bella-gold/15 text-bella-navy rounded-md px-2 py-1 text-xs font-medium border border-bella-gold/30 inline-flex items-center gap-1.5 whitespace-nowrap",
         className
       )}
     >

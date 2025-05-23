@@ -1,7 +1,5 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-/* Adding Uber Move font */
-@import url('https://fonts.cdnfonts.com/css/uber-move-text');
 
 @tailwind base;
 @tailwind components;
@@ -9,83 +7,83 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%; /* Uber light background */
-    --foreground: 0 0% 0%; /* Black text */
+    --background: 210 33% 98%; /* Light background with slight blue tint */
+    --foreground: 220 25% 10%; /* Dark text */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
+    --card-foreground: 220 25% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
+    --popover-foreground: 220 25% 10%;
 
-    --primary: 153 94% 39%; /* Uber green */
+    --primary: 215 65% 15%; /* Bella Navy */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 96%; /* Light grey */
-    --secondary-foreground: 0 0% 0%;
+    --secondary: 45 89% 66%; /* Bella Gold */
+    --secondary-foreground: 215 65% 15%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 220 10% 45%;
 
-    --accent: 153 94% 39%; /* Light Uber green */
-    --accent-foreground: 153 94% 39%;
+    --accent: 45 89% 66%; /* Bella Gold */
+    --accent-foreground: 215 65% 15%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 92%;
-    --input: 0 0% 92%;
-    --ring: 153 94% 39%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 215 65% 15%;
 
     --radius: 8px;
 
-    --sidebar-background: 0 0% 0%; /* Black sidebar */
+    --sidebar-background: 215 65% 15%; /* Bella Navy */
     --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 153 94% 39%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 12%;
+    --sidebar-primary: 45 89% 66%; /* Bella Gold */
+    --sidebar-primary-foreground: 215 65% 15%;
+    --sidebar-accent: 215 30% 22%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 0 0% 12%;
-    --sidebar-ring: 153 94% 39%;
+    --sidebar-border: 215 30% 22%;
+    --sidebar-ring: 45 89% 66%; /* Bella Gold */
   }
 
   .dark {
-    --background: 0 0% 7%;
+    --background: 215 50% 10%;
     --foreground: 0 0% 100%;
 
-    --card: 0 0% 7%;
+    --card: 215 25% 15%;
     --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 7%;
+    --popover: 215 25% 15%;
     --popover-foreground: 0 0% 100%;
 
-    --primary: 153 94% 39%; /* Keep Uber green in dark mode */
-    --primary-foreground: 0 0% 100%;
+    --primary: 45 89% 66%; /* Bella Gold in dark mode */
+    --primary-foreground: 215 65% 15%;
 
-    --secondary: 0 0% 12%;
+    --secondary: 215 65% 20%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 65%;
+    --muted: 215 25% 20%;
+    --muted-foreground: 210 10% 80%;
 
-    --accent: 0 0% 12%;
+    --accent: 215 30% 25%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 12%;
-    --input: 0 0% 12%;
-    --ring: 153 94% 39%;
+    --border: 215 25% 20%;
+    --input: 215 25% 20%;
+    --ring: 45 89% 66%;
     
-    --sidebar-background: 0 0% 0%;
+    --sidebar-background: 215 65% 15%;
     --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 153 94% 39%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 12%;
+    --sidebar-primary: 45 89% 66%; /* Bella Gold */
+    --sidebar-primary-foreground: 215 65% 15%;
+    --sidebar-accent: 215 30% 22%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 0 0% 12%;
-    --sidebar-ring: 153 94% 39%;
+    --sidebar-border: 215 30% 22%;
+    --sidebar-ring: 45 89% 66%; /* Bella Gold */
   }
 }
 
@@ -95,12 +93,12 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-gradient-subtle text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply tracking-tight;
+    @apply tracking-tight text-bella-text font-medium;
   }
 
   a {
@@ -108,7 +106,7 @@
   }
 
   input, textarea, select {
-    @apply focus:ring-uber-green focus:border-uber-green;
+    @apply focus:ring-bella-gold focus:border-bella-gold;
   }
 }
 
@@ -146,17 +144,17 @@
     @apply bg-red-500;
   }
 
-  /* Uber-style nav item */
+  /* Bella-style nav item */
   .nav-item {
-    @apply px-4 py-2.5 rounded-lg text-uber-secondary-text transition-all duration-200 mb-0.5;
+    @apply px-4 py-2.5 rounded-lg text-bella-secondary-text transition-all duration-200 mb-0.5;
   }
 
   .nav-item:hover {
-    @apply bg-uber-grey text-uber-text;
+    @apply bg-bella-grey text-bella-text;
   }
 
   .nav-item.active {
-    @apply bg-uber-green text-white font-medium;
+    @apply bg-bella-gold text-bella-navy font-medium;
   }
 
   /* Interactive elements */
@@ -165,7 +163,7 @@
   }
   
   .hover-lift {
-    @apply transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md;
+    @apply transition-all duration-200 hover:-translate-y-0.5 hover:shadow-hover;
   }
 
   /* Subtle animations */
@@ -199,11 +197,11 @@
   }
 
   .user-message .message-content {
-    @apply bg-uber-green text-white font-medium rounded-tr-none;
+    @apply bg-bella-navy text-white font-medium rounded-tr-none;
   }
 
   .ai-message .message-content {
-    @apply bg-muted text-foreground rounded-tl-none border border-uber-dark-grey/10;
+    @apply bg-white text-foreground rounded-tl-none border border-bella-dark-grey/10 shadow-sm;
   }
 
   .ai-message.loading .message-content {
@@ -211,13 +209,13 @@
   }
 }
 
-/* Uber-inspired styling */
+/* Bella-inspired styling */
 .reference-tag {
-  background-color: rgba(6, 193, 103, 0.05);
+  background-color: rgba(244, 211, 94, 0.15);
   border-radius: 4px;
   padding: 2px 8px;
-  color: #06C167;
-  border: 1px solid rgba(6, 193, 103, 0.15);
+  color: #0A2342;
+  border: 1px solid rgba(244, 211, 94, 0.3);
   font-weight: 500;
   font-size: 0.875rem;
   letter-spacing: -0.01em;
@@ -225,3 +223,4 @@
   align-items: center;
   margin: 0 2px;
 }
+

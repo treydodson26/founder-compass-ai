@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -25,6 +24,17 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				bella: {
+					'navy': '#0A2342', // Bella Navy (dark blue)
+					'gold': '#F4D35E', // Bella Gold
+					'light-gold': '#F7E3A1', // Light shade of gold
+					'dark-gold': '#D9B44A', // Darker shade of gold
+					'grey': '#F6F8FA', // Light grey
+					'dark-grey': '#4A5568', // Dark grey
+					'text': '#1A202C', // Primary text
+					'secondary-text': '#4A5568', // Secondary text
+					'accent': '#EDF2F7', // Subtle accent
+				},
 				uber: {
 					'black': '#000000', // Uber black
 					'white': '#FFFFFF', // Uber white
@@ -86,10 +96,18 @@ export default {
 					"expansion": "#A78BFA"
 				}
 			},
+			backgroundImage: {
+				'gradient-subtle': 'linear-gradient(to bottom right, #F7F9FC, #EDF2F7)',
+			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			boxShadow: {
+				'card': '0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1)',
+				'subtle': '0 2px 10px rgba(0, 0, 0, 0.04)',
+				'hover': '0 10px 15px rgba(0, 0, 0, 0.1)',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -134,13 +152,10 @@ export default {
 				'scale-in': 'scale-in 0.2s ease-out'
 			},
 			fontFamily: {
-				sans: ['"UberMove"', 'Inter var', 'sans-serif'],
+				sans: ['"Inter"', 'system-ui', 'sans-serif'],
 			},
 			spacing: {
 				'18': '4.5rem',
-			},
-			boxShadow: {
-				'subtle': '0 2px 10px rgba(0, 0, 0, 0.04)',
 			},
 		}
 	},

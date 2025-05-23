@@ -21,7 +21,6 @@ import {
   Users, 
   Bell, 
   Settings, 
-  ChevronRight, 
   Calendar,
   FileText,
   Phone,
@@ -44,10 +43,10 @@ export function AppLayout({ children }: AppLayoutProps) {
   return (
     <SidebarProvider defaultOpen={true}>
       <div className="flex min-h-screen w-full">
-        <Sidebar variant="inset" className="bg-uber-black">
-          <SidebarHeader className="border-b border-uber-dark-grey/30">
+        <Sidebar variant="inset" className="bg-bella-navy">
+          <SidebarHeader className="border-b border-sidebar-border/30">
             <div className="px-3 py-4 flex items-center gap-2">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-uber-green text-white">
+              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-bella-gold text-bella-navy">
                 <BookOpen size={18} strokeWidth={2.25} />
               </div>
               <div className="text-white">
@@ -63,7 +62,7 @@ export function AppLayout({ children }: AppLayoutProps) {
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive("/")} tooltip="Dashboard" className="text-white hover:bg-uber-dark-grey">
+                    <SidebarMenuButton asChild isActive={isActive("/")} tooltip="Dashboard" className="text-white hover:bg-bella-navy-lighter">
                       <Link to="/">
                         <Home strokeWidth={2} />
                         <span>Dashboard</span>
@@ -71,7 +70,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive("/founders")} tooltip="Founder Gallery" className="text-white hover:bg-uber-dark-grey">
+                    <SidebarMenuButton asChild isActive={isActive("/founders")} tooltip="Founder Gallery" className="text-white hover:bg-sidebar-accent">
                       <Link to="/founders">
                         <Users strokeWidth={2} />
                         <span>Founder Gallery</span>
@@ -79,7 +78,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive("/resources")} tooltip="Resources" className="text-white hover:bg-uber-dark-grey">
+                    <SidebarMenuButton asChild isActive={isActive("/resources")} tooltip="Resources" className="text-white hover:bg-sidebar-accent">
                       <Link to="/resources">
                         <FileText strokeWidth={2} />
                         <span>Resources</span>
@@ -87,7 +86,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive("/alerts")} tooltip="Alerts" className="text-white hover:bg-uber-dark-grey">
+                    <SidebarMenuButton asChild isActive={isActive("/alerts")} tooltip="Alerts" className="text-white hover:bg-sidebar-accent">
                       <Link to="/">
                         <Bell strokeWidth={2} />
                         <span>Alerts</span>
@@ -95,7 +94,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive("/settings")} tooltip="Settings" className="text-white hover:bg-uber-dark-grey">
+                    <SidebarMenuButton asChild isActive={isActive("/settings")} tooltip="Settings" className="text-white hover:bg-sidebar-accent">
                       <Link to="/">
                         <Settings strokeWidth={2} />
                         <span>Settings</span>
@@ -111,26 +110,26 @@ export function AppLayout({ children }: AppLayoutProps) {
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild className="text-white hover:bg-uber-dark-grey">
+                    <SidebarMenuButton asChild className="text-white hover:bg-sidebar-accent">
                       <div>
-                        <Calendar strokeWidth={2} className="text-white" />
+                        <Calendar strokeWidth={2} className="text-bella-gold" />
                         <div>
                           <span>Acme Co Meeting</span>
                           <span className="block text-xs text-white/70">Today, 3:00 PM</span>
                         </div>
-                        <ArrowRight className="ml-auto h-4 w-4 opacity-50" />
+                        <ArrowRight className="ml-auto h-4 w-4 text-bella-gold/70" />
                       </div>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild className="text-white hover:bg-uber-dark-grey">
+                    <SidebarMenuButton asChild className="text-white hover:bg-sidebar-accent">
                       <div>
-                        <Phone strokeWidth={2} className="text-white" />
+                        <Phone strokeWidth={2} className="text-bella-gold" />
                         <div>
                           <span>Follow-up Call</span>
                           <span className="block text-xs text-white/70">Tomorrow, 11:30 AM</span>
                         </div>
-                        <ArrowRight className="ml-auto h-4 w-4 opacity-50" />
+                        <ArrowRight className="ml-auto h-4 w-4 text-bella-gold/70" />
                       </div>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -139,26 +138,26 @@ export function AppLayout({ children }: AppLayoutProps) {
             </SidebarGroup>
           </SidebarContent>
           
-          <SidebarFooter className="border-t border-uber-dark-grey/30">
+          <SidebarFooter className="border-t border-sidebar-border/30">
             <div className="p-3">
-              <SidebarMenuButton asChild className="text-white hover:bg-uber-dark-grey">
+              <SidebarMenuButton asChild className="text-white hover:bg-sidebar-accent">
                 <div>
-                  <Avatar className="h-9 w-9 border-2 border-white/20">
+                  <Avatar className="h-9 w-9 border-2 border-bella-gold/20">
                     <AvatarImage src="https://github.com/shadcn.png" alt="User" />
-                    <AvatarFallback className="bg-uber-dark-grey text-white">JD</AvatarFallback>
+                    <AvatarFallback className="bg-sidebar-accent text-white">JD</AvatarFallback>
                   </Avatar>
                   <div>
                     <span className="font-medium text-sm">John Doe</span>
                     <span className="block text-xs text-white/70">Administrator</span>
                   </div>
-                  <MessageSquare strokeWidth={2} className="ml-auto h-4 w-4 opacity-50" />
+                  <MessageSquare strokeWidth={2} className="ml-auto h-4 w-4 text-bella-gold/70" />
                 </div>
               </SidebarMenuButton>
             </div>
           </SidebarFooter>
         </Sidebar>
         
-        <SidebarInset className="bg-uber-grey">
+        <SidebarInset className="bg-gradient-subtle">
           <div className="flex flex-col h-full">
             {children}
           </div>
