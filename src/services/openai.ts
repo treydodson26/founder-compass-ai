@@ -1,82 +1,81 @@
 
-import { Founder } from '@/data/types';
-import type { Message } from '@/hooks/use-ai-chat';
+import { supabase } from "@/integrations/supabase/client";
+import { Founder } from "@/data/types";
+import { toast } from "@/hooks/use-toast";
 
-// This service handles OpenAI API interactions through Supabase Edge Functions
-export const openaiService = {
-  /**
-   * Send a message to OpenAI and get a response
-   */
-  sendMessage: async (
-    message: string, 
-    founder: Founder, 
-    conversationHistory: Message[]
-  ) => {
+export type MessageInput = {
+  role: 'user' | 'ai';
+  content: string;
+};
+
+export class OpenAIService {
+  private addContextToPrompt(prompt: string, founder: Founder, previousMessages: MessageInput[]): string {
+    // Create a detailed context string that includes founder-specific information
+    const context = `
+Founder: ${founder.name}
+Company: ${founder.companyName}
+ARR: ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact' }).format(founder.arr)}
+Stage: ${founder.stage}
+Resources available:
+- Email threads: ${founder.resources.emailThreads}
+- Call recordings: ${founder.resources.callRecordings}
+- Meeting notes: ${founder.resources.meetingNotes}
+Key metrics:
+- Customer count: ${founder.metrics.customerCount}
+- Growth rate: ${(founder.metrics.growthRate * 100).toFixed(1)}%
+- Churn rate: ${(founder.metrics.churnRate * 100).toFixed(1)}%
+Milestones: ${founder.milestones.map(m => `${m.title} (${m.completed ? 'Completed' : 'Pending'})`).join(', ')}
+    `;
+    
+    // Combine the context with the prompt
+    const enhancedPrompt = `${context}\n\nUser question: ${prompt}\n\nWhen you reference documents in your responses, wrap the reference in <span class="reference-tag">reference name</span> format.`;
+    return enhancedPrompt;
+  }
+  
+  async sendMessage(prompt: string, founder: Founder, previousMessages: MessageInput[] = []): Promise<string> {
     try {
-      // Format the conversation history for the API
-      const formattedHistory = conversationHistory.map(msg => ({
-        role: msg.role === 'user' ? 'user' : 'assistant',
-        content: msg.content
-      }));
-
-      // Prepare the system message with context about the founder
-      const systemMessage = {
-        role: 'system',
-        content: `You are an AI assistant with access to information about ${founder.name}, founder of ${founder.companyName}. 
-          They're currently in ${founder.stage} stage with ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact' }).format(founder.arr)} ARR.
-          You have access to ${founder.resources.callRecordings} call recordings, ${founder.resources.emailThreads} email threads, and ${founder.resources.meetingNotes} meeting notes.
-          Provide helpful insights and advice based on this context.`
-      };
-
-      // For development/testing purposes, return a mock response
-      // This avoids the need for the actual API endpoint to be deployed
-      console.log('Sending message to OpenAI:', message);
-      console.log('System message:', systemMessage);
-      console.log('Conversation history:', formattedHistory);
+      // Enhance the prompt with founder context
+      const enhancedPrompt = this.addContextToPrompt(prompt, founder, previousMessages);
       
-      // Instead of making an API call, return a mock response
-      return `I'm a simulated AI response for testing purposes. You asked: "${message}". 
-      
-As an AI assistant with access to ${founder.name}'s information, I can tell you they are at ${founder.stage} stage with ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact' }).format(founder.arr)} ARR. 
-      
-I have access to ${founder.resources.callRecordings} call recordings, ${founder.resources.emailThreads} email threads, and ${founder.resources.meetingNotes} meeting notes that could provide insights about their business journey.`;
-
-      /* 
-      // This is the actual API code - uncomment when the edge function is deployed
-      const response = await fetch('/api/openai', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      // Format messages for the OpenAI API
+      const formattedMessages = [
+        {
+          role: 'system',
+          content: `You are an AI assistant with access to VC data. You help venture capitalists by providing insights about their portfolio companies.
+When you reference specific documents or resources, wrap them in <span class="reference-tag">document name</span> tags.
+For example: Based on <span class="reference-tag">email thread from Jan 15-19</span>, the founder is considering...`
         },
-        body: JSON.stringify({
-          messages: [
-            systemMessage,
-            ...formattedHistory,
-            { role: 'user', content: message }
-          ],
-          founder: {
-            id: founder.id,
-            name: founder.name,
-            companyName: founder.companyName,
-            stage: founder.stage,
-            arr: founder.arr,
-            resources: founder.resources,
-            metrics: founder.metrics
-          }
-        }),
+        ...previousMessages.map(msg => ({
+          role: msg.role,
+          content: msg.content
+        })),
+        {
+          role: 'user',
+          content: enhancedPrompt
+        }
+      ];
+      
+      // Call our Supabase Edge Function that interfaces with OpenAI
+      const { data, error } = await supabase.functions.invoke('openai', {
+        body: { messages: formattedMessages }
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to get AI response');
+      
+      if (error) {
+        console.error('Error calling OpenAI API:', error);
+        throw new Error('Failed to get a response from AI');
       }
-
-      const data = await response.json();
+      
       return data.response;
-      */
     } catch (error) {
-      console.error('Error calling OpenAI:', error);
+      console.error('Error in OpenAI service:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to get a response from AI. Please try again.',
+        variant: 'destructive',
+      });
       throw error;
     }
   }
-};
+}
+
+export const openaiService = new OpenAIService();

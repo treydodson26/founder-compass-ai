@@ -1,12 +1,13 @@
 
-import React, { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import React, { useState, useEffect, useRef } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { SendHorizontal, Bot, Loader2 } from "lucide-react";
 import { Founder } from "@/data/types";
 import { cn } from "@/lib/utils";
 import { useAiChat, Message } from "@/hooks/use-ai-chat";
+import { ReferenceTag } from "@/components/reference-tag";
 
 interface AIChatProps {
   founder: Founder;
@@ -16,6 +17,8 @@ interface AIChatProps {
 export function AIChat({ founder, className }: AIChatProps) {
   const [prompt, setPrompt] = useState("");
   const { messages, sendMessage, isLoading } = useAiChat(founder);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,17 +28,58 @@ export function AIChat({ founder, className }: AIChatProps) {
     setPrompt(""); // Clear input field immediately
     await sendMessage(userMessage);
   };
+
+  // Auto-scroll to bottom when new messages come in
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  // Handle demo trigger button click
+  useEffect(() => {
+    const hiddenButton = document.querySelector('.demo-trigger-hidden-button');
+    if (!hiddenButton) return;
+    
+    const handleDemoClick = () => {
+      const demoMessages = [
+        { 
+          role: 'user', 
+          content: "Hey, I just got off a call with Ethan from Aaptiv. He mentioned they lost the Aaptiv deal - can you help me understand what happened?" 
+        },
+        { 
+          role: 'ai', 
+          content: `I've analyzed the relevant communications about the Aaptiv opportunity. Based on the <span class="reference-tag">email thread from Jan 15-19</span> and <span class="reference-tag">discovery call transcript (Jan 8, 30 mins)</span>, here's what led to the loss:<br/><br/>Primary factor: Aaptiv chose a competitor (FitTech) that already had FDA compliance certifications in place. Ethan from Aaptiv mentioned in his follow-up email that DataSync's compliance roadmap shows Q3 2025 for FDA certification - a 6-month gap that was dealbreaking.` 
+        }
+      ];
+      
+      // Add demo messages to the chat
+      for (const msg of demoMessages) {
+        const messageEl = document.createElement('div');
+        messageEl.className = `flex max-w-[80%] rounded-lg p-3 mb-4 ${
+          msg.role === 'user' 
+            ? 'bg-primary text-primary-foreground ml-auto' 
+            : 'bg-muted'
+        }`;
+        messageEl.innerHTML = `<p class="whitespace-pre-line">${msg.content}</p>`;
+        chatContainerRef.current?.appendChild(messageEl);
+      }
+      
+      // Scroll to bottom
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+    
+    hiddenButton.addEventListener('click', handleDemoClick);
+    return () => {
+      hiddenButton.removeEventListener('click', handleDemoClick);
+    };
+  }, []);
   
   return (
-    <Card className={cn("flex flex-col h-full", className)}>
-      <CardHeader className="pb-3">
-        <div className="flex items-center gap-2">
-          <Bot className="h-5 w-5 text-primary" />
-          <CardTitle className="text-lg">AI Assistant</CardTitle>
-        </div>
-      </CardHeader>
-      <CardContent className="flex-1 flex flex-col">
-        <div className="flex-1 overflow-auto mb-4 space-y-4 pr-1">
+    <Card className={cn("flex flex-col h-[500px] border-0 shadow-none", className)}>
+      <CardContent className="flex-1 flex flex-col p-4">
+        <div 
+          ref={chatContainerRef}
+          className="flex-1 overflow-auto mb-4 space-y-4 pr-1"
+        >
           {messages.map((message, index) => (
             <div 
               key={index} 
@@ -46,7 +90,14 @@ export function AIChat({ founder, className }: AIChatProps) {
                   : "bg-muted"
               )}
             >
-              <p className="whitespace-pre-line">{message.content}</p>
+              {message.role === "ai" && message.content.includes('reference-tag') ? (
+                <p 
+                  className="whitespace-pre-line" 
+                  dangerouslySetInnerHTML={{ __html: message.content }}
+                />
+              ) : (
+                <p className="whitespace-pre-line">{message.content}</p>
+              )}
             </div>
           ))}
           {isLoading && (
@@ -55,6 +106,7 @@ export function AIChat({ founder, className }: AIChatProps) {
               <p className="text-sm">AI is thinking...</p>
             </div>
           )}
+          <div ref={messagesEndRef} />
         </div>
         
         <form onSubmit={handleSubmit} className="flex gap-2 items-end">
