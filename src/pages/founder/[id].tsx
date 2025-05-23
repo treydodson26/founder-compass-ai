@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { pearVCFounders } from "@/data/pearVCFounders";
 import { FounderHeader } from "@/components/founder-header";
@@ -11,6 +11,11 @@ const FounderDetail = () => {
   const navigate = useNavigate();
   
   const founder = pearVCFounders.find(f => f.id === id);
+  
+  // Scroll to top when the component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]); // Re-run when founder ID changes
   
   if (!founder) {
     navigate("/404");

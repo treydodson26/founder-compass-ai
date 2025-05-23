@@ -34,6 +34,8 @@ export function FounderCard({ founder, className }: FounderCardProps) {
   };
   
   const handleClick = () => {
+    // Navigate to founder detail page and scroll to top
+    window.scrollTo(0, 0);
     navigate(`/founder/${founder.id}`);
   };
 
