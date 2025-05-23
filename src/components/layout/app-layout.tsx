@@ -69,7 +69,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild isActive={isActive("/founders")} tooltip="Founder Gallery">
-                      <Link to="/">
+                      <Link to="/founders">
                         <Users />
                         <span>Founder Gallery</span>
                       </Link>

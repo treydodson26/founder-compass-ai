@@ -184,7 +184,8 @@ const FounderDetail = () => {
         </div>
       </div>
       
-      <style jsx>{`
+      <style>
+        {`
         .reference-tag {
           background-color: rgba(59, 130, 246, 0.1);
           border-radius: 4px;
@@ -192,7 +193,8 @@ const FounderDetail = () => {
           color: rgb(59, 130, 246);
           border: 1px solid rgba(59, 130, 246, 0.3);
         }
-      `}</style>
+        `}
+      </style>
     </div>
   );
 };
