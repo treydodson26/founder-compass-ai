@@ -54,12 +54,8 @@ export function AIChat({ founder, className }: AIChatProps) {
       // Add demo messages to the chat
       for (const msg of demoMessages) {
         const messageEl = document.createElement('div');
-        messageEl.className = `flex max-w-[80%] rounded-lg p-3 mb-4 ${
-          msg.role === 'user' 
-            ? 'bg-primary text-primary-foreground ml-auto' 
-            : 'bg-muted'
-        }`;
-        messageEl.innerHTML = `<p class="whitespace-pre-line">${msg.content}</p>`;
+        messageEl.className = `message ${msg.role === 'user' ? 'user-message' : 'ai-message'}`;
+        messageEl.innerHTML = `<div class="message-content">${msg.content}</div>`;
         chatContainerRef.current?.appendChild(messageEl);
       }
       
@@ -74,42 +70,43 @@ export function AIChat({ founder, className }: AIChatProps) {
   }, []);
   
   return (
-    <Card className={cn("flex flex-col h-[500px] border-0 shadow-none", className)}>
+    <Card className={cn("flex flex-col h-[500px] border shadow-sm", className)}>
       <CardContent className="flex-1 flex flex-col p-4">
         <div 
           ref={chatContainerRef}
-          className="flex-1 overflow-auto mb-4 space-y-4 pr-1"
+          className="flex-1 overflow-auto mb-4 space-y-4 pr-1 pb-2"
         >
           {messages.map((message, index) => (
             <div 
               key={index} 
               className={cn(
-                "flex max-w-[80%] rounded-lg p-3",
-                message.role === "user" 
-                  ? "bg-primary text-primary-foreground ml-auto" 
-                  : "bg-muted"
+                "message",
+                message.role === "user" ? "user-message" : "ai-message"
               )}
             >
-              {message.role === "ai" && message.content.includes('reference-tag') ? (
-                <p 
-                  className="whitespace-pre-line" 
-                  dangerouslySetInnerHTML={{ __html: message.content }}
-                />
-              ) : (
-                <p className="whitespace-pre-line">{message.content}</p>
-              )}
+              <div className="message-content">
+                {message.role === "ai" && message.content.includes('reference-tag') ? (
+                  <div 
+                    dangerouslySetInnerHTML={{ __html: message.content }}
+                  />
+                ) : (
+                  <div>{message.content}</div>
+                )}
+              </div>
             </div>
           ))}
           {isLoading && (
-            <div className="bg-muted p-3 rounded-lg max-w-[80%] flex items-center gap-2">
-              <Loader2 className="h-4 w-4 animate-spin" />
-              <p className="text-sm">AI is thinking...</p>
+            <div className="ai-message loading">
+              <div className="message-content flex items-center gap-2">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <p>AI is thinking...</p>
+              </div>
             </div>
           )}
           <div ref={messagesEndRef} />
         </div>
         
-        <form onSubmit={handleSubmit} className="flex gap-2 items-end">
+        <form onSubmit={handleSubmit} className="flex gap-2 items-end mt-auto">
           <Textarea 
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}

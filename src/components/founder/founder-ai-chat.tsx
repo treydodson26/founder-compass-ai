@@ -4,6 +4,7 @@ import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AIChat } from "@/components/ai-chat";
 import { Founder } from "@/data/types";
+import { Bot } from "lucide-react";
 
 interface FounderAIChatProps {
   founder: Founder;
@@ -18,11 +19,14 @@ export function FounderAIChat({ founder }: FounderAIChatProps) {
   };
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <CardTitle>AI Assistant for {founder.name}</CardTitle>
+    <Card className="overflow-hidden">
+      <CardHeader className="flex flex-row items-center justify-between pb-2 border-b">
+        <CardTitle className="flex items-center gap-2">
+          <Bot className="h-5 w-5 text-uber-green" />
+          {founder.name}'s AI Assistant
+        </CardTitle>
         <Button 
-          variant="outline" 
+          variant="secondary" 
           size="sm" 
           onClick={handleDemoTrigger}
           className="text-xs"

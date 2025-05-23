@@ -21,7 +21,7 @@ const FounderDetail = () => {
     <div className="container py-6 max-w-7xl mx-auto px-4 sm:px-6 animate-fade-in">
       <FounderHeader founder={founder} />
       
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
         <div className="lg:col-span-2 space-y-6">
           <FounderAIChat founder={founder} />
         </div>
@@ -30,6 +30,6 @@ const FounderDetail = () => {
       </div>
     </div>
   );
-};
+}
 
 export default FounderDetail;
