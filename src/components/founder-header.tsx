@@ -32,7 +32,7 @@ export function FounderHeader({ founder }: FounderHeaderProps) {
           variant="secondary" 
           size="sm"
           onClick={() => navigate("/")}
-          className="bg-white text-bella-navy hover:bg-bella-gold/90"
+          className="bg-bella-gold text-bella-navy hover:bg-bella-gold/90"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to all founders
@@ -43,7 +43,7 @@ export function FounderHeader({ founder }: FounderHeaderProps) {
             variant="secondary" 
             size="sm"
             onClick={() => navigate(`/resources?founder=${founder.id}`)}
-            className="bg-white text-bella-navy hover:bg-bella-gold/90"
+            className="bg-bella-gold text-bella-navy hover:bg-bella-gold/90"
           >
             <LibraryIcon className="h-4 w-4 mr-2" />
             View Resources
