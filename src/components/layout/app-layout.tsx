@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarInset } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Home, Users, Bell, Settings, Calendar, FileText, Phone, MessageSquare, ArrowRight } from "lucide-react";
+
 interface AppLayoutProps {
   children: React.ReactNode;
 }
@@ -18,9 +19,8 @@ export function AppLayout({
         <Sidebar variant="inset" className="bg-bella-navy">
           <SidebarHeader className="border-b border-sidebar-border/30">
             <div className="px-3 py-6 flex flex-col items-center justify-center">
-              
+              <p className="text-2xl font-bold text-bella-gold mb-2">ABELIAN</p>
               <h1 className="font-bold text-xl text-white text-center">Founder Management</h1>
-              <p className="text-2xl font-bold text-bella-gold mt-2">ABELIAN</p>
             </div>
           </SidebarHeader>
           
