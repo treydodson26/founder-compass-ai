@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { StageBadge } from "@/components/stage-badge";
@@ -29,11 +28,6 @@ export function FounderHeader({ founder }: FounderHeaderProps) {
     <div className="bg-bella-navy p-6 md:p-8 rounded-lg shadow-card border border-bella-dark-grey/10 mb-6 text-white animate-fade-in">
       <div className="flex flex-wrap gap-4 justify-between items-center mb-6">
         <div className="flex items-center gap-2">
-          <img 
-            src="/lovable-uploads/1a95ea61-2d32-431f-9307-06a43d4cf767.png" 
-            alt="Abelian Logo" 
-            className="h-8 w-8 mr-2"
-          />
           <Button 
             variant="secondary" 
             size="sm"
