@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarInset } from "@/components/ui/sidebar";
@@ -24,10 +23,8 @@ export function AppLayout({
                 alt="Abelian Logo" 
                 className="h-16 w-16 mb-4"
               />
-              <div className="text-white text-center">
-                <h1 className="font-bold text-xl">Founder OS</h1>
-                <p className="text-2xl font-bold text-bella-gold mt-2">ABELIAN</p>
-              </div>
+              <h1 className="font-bold text-xl text-white">Founder OS</h1>
+              <p className="text-2xl font-bold text-bella-gold mt-2">ABELIAN</p>
             </div>
           </SidebarHeader>
           
