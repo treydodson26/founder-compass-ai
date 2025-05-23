@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarInset } from "@/components/ui/sidebar";
@@ -21,8 +22,8 @@ export function AppLayout({ children }: AppLayoutProps) {
           <SidebarHeader className="border-b border-sidebar-border/30">
             <div className="px-3 py-6 flex flex-col items-center justify-center">
               <div className="flex items-center gap-2 mb-2">
+                <span className="text-white text-xl font-semibold">VC</span>
                 <div className="text-4xl">🍐</div>
-                <span className="text-white text-xl font-semibold">Pear VC</span>
               </div>
             </div>
           </SidebarHeader>
