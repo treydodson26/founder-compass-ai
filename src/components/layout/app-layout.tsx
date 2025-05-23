@@ -8,14 +8,15 @@ import { Home, Users, Bell, Settings, Calendar, FileText, Phone, MessageSquare, 
 interface AppLayoutProps {
   children: React.ReactNode;
 }
-export function AppLayout({
-  children
-}: AppLayoutProps) {
+
+export function AppLayout({ children }: AppLayoutProps) {
   const location = useLocation();
   const isActive = (path: string) => {
     return location.pathname === path;
   };
-  return <SidebarProvider defaultOpen={true}>
+  
+  return (
+    <SidebarProvider defaultOpen={true}>
       <div className="flex min-h-screen w-full">
         <Sidebar variant="inset" className="bg-bella-navy">
           <SidebarHeader className="border-b border-sidebar-border/30">
@@ -24,6 +25,9 @@ export function AppLayout({
                 src="/lovable-uploads/Pear_VC_logo.svg"
                 alt="Pear VC"
                 className="h-12 w-auto mb-2"
+                onError={(e) => {
+                  console.error("Failed to load Pear VC logo:", e);
+                }}
               />
             </div>
           </SidebarHeader>
@@ -135,5 +139,6 @@ export function AppLayout({
           </div>
         </SidebarInset>
       </div>
-    </SidebarProvider>;
+    </SidebarProvider>
+  );
 }
