@@ -20,7 +20,6 @@ export function AppLayout({
           <SidebarHeader className="border-b border-sidebar-border/30">
             <div className="px-3 py-6 flex flex-col items-center justify-center">
               <p className="text-2xl font-bold text-bella-gold mb-2">ABELIAN</p>
-              <h1 className="font-bold text-xl text-white text-center">Founder Management</h1>
             </div>
           </SidebarHeader>
           
