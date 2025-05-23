@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
@@ -27,7 +26,6 @@ export function Dashboard() {
   // Calculate metrics for the dashboard
   const totalFounders = pearVCFounders.length;
   const healthyFounders = pearVCFounders.filter(f => f.status === "On Track").length;
-  const healthScore = Math.round((healthyFounders / totalFounders) * 100);
   
   // Calculate total ARR
   const totalARR = pearVCFounders.reduce((sum, founder) => sum + founder.arr, 0);
@@ -73,11 +71,11 @@ export function Dashboard() {
             </CardContent>
           </Card>
           
-          {/* Health Score Card */}
+          {/* Number of Founders Card */}
           <Card className="hover:shadow-md transition-all">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
-                Portfolio Health Score
+                # of Founders
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -86,13 +84,11 @@ export function Dashboard() {
                   <BarChart3Icon className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <div className="text-3xl font-bold">{healthScore}%</div>
+                  <div className="text-3xl font-bold">{totalFounders}</div>
                   <div className="text-xs text-muted-foreground">
-                    <span className={healthScore > 70 ? "text-green-500 inline-flex items-center" : "text-amber-500 inline-flex items-center"}>
-                      {healthScore > 70 ? 
-                        <><ArrowUpIcon className="h-3 w-3 mr-1" /> Good standing</> : 
-                        <><ArrowRightIcon className="h-3 w-3 mr-1" /> Needs attention</>
-                      }
+                    <span className="text-green-500 inline-flex items-center">
+                      <ArrowUpIcon className="h-3 w-3 mr-1" />
+                      Active portfolio
                     </span>
                   </div>
                 </div>
