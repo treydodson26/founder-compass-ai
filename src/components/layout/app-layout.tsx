@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarInset } from "@/components/ui/sidebar";
@@ -21,14 +20,10 @@ export function AppLayout({ children }: AppLayoutProps) {
         <Sidebar variant="inset" className="bg-bella-navy">
           <SidebarHeader className="border-b border-sidebar-border/30">
             <div className="px-3 py-6 flex flex-col items-center justify-center">
-              <img 
-                src="/lovable-uploads/6f2dd2ee-c441-463c-b6e1-483710739210.png"
-                alt="Pear VC"
-                className="h-12 w-auto mb-2 brightness-0 invert"
-                onError={(e) => {
-                  console.error("Failed to load Pear VC logo:", e);
-                }}
-              />
+              <div className="flex items-center gap-2 mb-2">
+                <div className="text-4xl">🍐</div>
+                <span className="text-white text-xl font-semibold">Pear VC</span>
+              </div>
             </div>
           </SidebarHeader>
           
