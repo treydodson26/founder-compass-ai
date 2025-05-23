@@ -46,7 +46,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           <SidebarHeader className="border-b border-sidebar-border/30">
             <div className="px-3 py-4 flex items-center gap-2">
               <img 
-                src="/lovable-uploads/36d34911-cfc5-44d6-8a10-62ecd88e9c9d.png" 
+                src="/lovable-uploads/1a95ea61-2d32-431f-9307-06a43d4cf767.png" 
                 alt="Abelian Logo" 
                 className="h-10 w-10"
               />

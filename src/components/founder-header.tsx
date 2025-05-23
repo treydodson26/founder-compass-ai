@@ -30,7 +30,7 @@ export function FounderHeader({ founder }: FounderHeaderProps) {
       <div className="flex flex-wrap gap-4 justify-between items-center mb-6">
         <div className="flex items-center gap-2">
           <img 
-            src="/lovable-uploads/36d34911-cfc5-44d6-8a10-62ecd88e9c9d.png" 
+            src="/lovable-uploads/1a95ea61-2d32-431f-9307-06a43d4cf767.png" 
             alt="Abelian Logo" 
             className="h-6 w-6 mr-2"
           />
