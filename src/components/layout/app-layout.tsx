@@ -1,57 +1,27 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { 
-  SidebarProvider, 
-  Sidebar, 
-  SidebarHeader, 
-  SidebarContent, 
-  SidebarFooter, 
-  SidebarMenu, 
-  SidebarMenuItem, 
-  SidebarMenuButton,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarInset
-} from "@/components/ui/sidebar";
+import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarInset } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
-  Home, 
-  Users, 
-  Bell, 
-  Settings, 
-  Calendar,
-  FileText,
-  Phone,
-  MessageSquare,
-  ArrowRight,
-} from "lucide-react";
-
+import { Home, Users, Bell, Settings, Calendar, FileText, Phone, MessageSquare, ArrowRight } from "lucide-react";
 interface AppLayoutProps {
   children: React.ReactNode;
 }
-
-export function AppLayout({ children }: AppLayoutProps) {
+export function AppLayout({
+  children
+}: AppLayoutProps) {
   const location = useLocation();
-  
   const isActive = (path: string) => {
     return location.pathname === path;
   };
-
-  return (
-    <SidebarProvider defaultOpen={true}>
+  return <SidebarProvider defaultOpen={true}>
       <div className="flex min-h-screen w-full">
         <Sidebar variant="inset" className="bg-bella-navy">
           <SidebarHeader className="border-b border-sidebar-border/30">
             <div className="px-3 py-6 flex flex-col items-center justify-center">
-              <img 
-                src="/lovable-uploads/1a95ea61-2d32-431f-9307-06a43d4cf767.png" 
-                alt="Abelian Logo" 
-                className="h-16 w-16 mb-2"
-              />
+              
               <div className="text-white text-center">
                 <h1 className="font-bold text-xl">Founder OS</h1>
-                <p className="text-xs opacity-80">ABELIAN</p>
+                <p className="text-xs opacity-80 px-[40px]">ABELIAN</p>
               </div>
             </div>
           </SidebarHeader>
@@ -163,6 +133,5 @@ export function AppLayout({ children }: AppLayoutProps) {
           </div>
         </SidebarInset>
       </div>
-    </SidebarProvider>
-  );
+    </SidebarProvider>;
 }
