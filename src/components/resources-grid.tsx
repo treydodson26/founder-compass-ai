@@ -1,12 +1,14 @@
 
 import React, { useState, useMemo } from "react";
 import { ResourceCard } from "@/components/resource-card";
+import { ResourcesTable } from "@/components/resources-table";
 import { Input } from "@/components/ui/input";
 import { Resource, ResourceType } from "@/data/types";
-import { Search, X, Filter } from "lucide-react";
+import { Search, X, Filter, LayoutGrid, List } from "lucide-react";
 import { resources } from "@/data/mockResources";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 // Define the extended resource type that includes "All"
 type FilterType = ResourceType | "All";
@@ -21,6 +23,7 @@ interface ResourcesGridProps {
 export function ResourcesGrid({ founderIdFilter, resourceTypeFilter, limit, className }: ResourcesGridProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState<FilterType>(resourceTypeFilter || "All");
+  const [viewMode, setViewMode] = useState<"grid" | "table">("table");
   
   const resourceTypes = ["All", "Document", "Call Recording", "Email Thread", "Meeting Note"] as const;
   
@@ -103,6 +106,27 @@ export function ResourcesGrid({ founderIdFilter, resourceTypeFilter, limit, clas
             ))}
           </div>
           
+          <div className="flex ml-auto gap-2">
+            <Button
+              variant={viewMode === "grid" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setViewMode("grid")}
+              className="rounded-md"
+            >
+              <LayoutGrid className="h-4 w-4" />
+              <span className="sr-only">Grid View</span>
+            </Button>
+            <Button
+              variant={viewMode === "table" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setViewMode("table")}
+              className="rounded-md"
+            >
+              <List className="h-4 w-4" />
+              <span className="sr-only">Table View</span>
+            </Button>
+          </div>
+          
           {hasActiveFilters && (
             <Button 
               variant="ghost" 
@@ -111,7 +135,7 @@ export function ResourcesGrid({ founderIdFilter, resourceTypeFilter, limit, clas
                 setSearchQuery("");
                 setSelectedType("All");
               }}
-              className="ml-auto text-muted-foreground hover:text-primary"
+              className="text-muted-foreground hover:text-primary ml-2"
             >
               Clear all filters
             </Button>
@@ -149,16 +173,18 @@ export function ResourcesGrid({ founderIdFilter, resourceTypeFilter, limit, clas
               )}
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
-            {filteredResources.map((resource) => (
-              <ResourceCard key={resource.id} resource={resource} />
-            ))}
-          </div>
+          
+          {viewMode === "grid" ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
+              {filteredResources.map((resource) => (
+                <ResourceCard key={resource.id} resource={resource} />
+              ))}
+            </div>
+          ) : (
+            <ResourcesTable resources={filteredResources} className="animate-fade-in" />
+          )}
         </div>
       )}
     </div>
   );
 }
-
-// Add the missing cn import at the top
-import { cn } from "@/lib/utils";
