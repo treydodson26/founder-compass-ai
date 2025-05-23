@@ -33,6 +33,7 @@ export default {
 					'dark-grey': '#333333', // Uber dark grey
 					'text': '#000000', // Uber primary text
 					'secondary-text': '#545454', // Uber secondary text
+					'accent': '#EAEAEA', // Uber subtle accent
 				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',

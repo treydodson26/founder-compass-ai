@@ -25,7 +25,9 @@ import {
   Calendar,
   FileText,
   Phone,
-  MessageCircle
+  MessageSquare,
+  BookOpen,
+  ArrowRight,
 } from "lucide-react";
 
 interface AppLayoutProps {
@@ -46,7 +48,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           <SidebarHeader className="border-b border-uber-dark-grey/30">
             <div className="px-3 py-4 flex items-center gap-2">
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-uber-green text-white">
-                <FileText size={20} />
+                <BookOpen size={18} strokeWidth={2.25} />
               </div>
               <div className="text-white">
                 <h1 className="font-bold text-xl">Founder OS</h1>
@@ -63,7 +65,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild isActive={isActive("/")} tooltip="Dashboard" className="text-white hover:bg-uber-dark-grey">
                       <Link to="/">
-                        <Home />
+                        <Home strokeWidth={2} />
                         <span>Dashboard</span>
                       </Link>
                     </SidebarMenuButton>
@@ -71,7 +73,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild isActive={isActive("/founders")} tooltip="Founder Gallery" className="text-white hover:bg-uber-dark-grey">
                       <Link to="/founders">
-                        <Users />
+                        <Users strokeWidth={2} />
                         <span>Founder Gallery</span>
                       </Link>
                     </SidebarMenuButton>
@@ -79,7 +81,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild isActive={isActive("/resources")} tooltip="Resources" className="text-white hover:bg-uber-dark-grey">
                       <Link to="/resources">
-                        <FileText />
+                        <FileText strokeWidth={2} />
                         <span>Resources</span>
                       </Link>
                     </SidebarMenuButton>
@@ -87,7 +89,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild isActive={isActive("/alerts")} tooltip="Alerts" className="text-white hover:bg-uber-dark-grey">
                       <Link to="/">
-                        <Bell />
+                        <Bell strokeWidth={2} />
                         <span>Alerts</span>
                       </Link>
                     </SidebarMenuButton>
@@ -95,7 +97,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild isActive={isActive("/settings")} tooltip="Settings" className="text-white hover:bg-uber-dark-grey">
                       <Link to="/">
-                        <Settings />
+                        <Settings strokeWidth={2} />
                         <span>Settings</span>
                       </Link>
                     </SidebarMenuButton>
@@ -111,24 +113,24 @@ export function AppLayout({ children }: AppLayoutProps) {
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild className="text-white hover:bg-uber-dark-grey">
                       <div>
-                        <Calendar className="text-white" />
+                        <Calendar strokeWidth={2} className="text-white" />
                         <div>
                           <span>Acme Co Meeting</span>
                           <span className="block text-xs text-white/70">Today, 3:00 PM</span>
                         </div>
-                        <ChevronRight className="ml-auto h-4 w-4 opacity-50" />
+                        <ArrowRight className="ml-auto h-4 w-4 opacity-50" />
                       </div>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild className="text-white hover:bg-uber-dark-grey">
                       <div>
-                        <Phone className="text-white" />
+                        <Phone strokeWidth={2} className="text-white" />
                         <div>
                           <span>Follow-up Call</span>
                           <span className="block text-xs text-white/70">Tomorrow, 11:30 AM</span>
                         </div>
-                        <ChevronRight className="ml-auto h-4 w-4 opacity-50" />
+                        <ArrowRight className="ml-auto h-4 w-4 opacity-50" />
                       </div>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -149,7 +151,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                     <span className="font-medium text-sm">John Doe</span>
                     <span className="block text-xs text-white/70">Administrator</span>
                   </div>
-                  <MessageCircle className="ml-auto h-4 w-4 opacity-50" />
+                  <MessageSquare strokeWidth={2} className="ml-auto h-4 w-4 opacity-50" />
                 </div>
               </SidebarMenuButton>
             </div>
