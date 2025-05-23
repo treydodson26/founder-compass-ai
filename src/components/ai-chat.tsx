@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,12 +15,11 @@ interface AIChatProps {
 
 export function AIChat({ founder, className }: AIChatProps) {
   const [prompt, setPrompt] = useState("");
-  const { messages, sendMessage, isLoading } = useAiChat(founder);
+  const { messages, sendMessage, isLoading, addMessage } = useAiChat(founder);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const chatContainerRef = useRef<HTMLDivElement>(null);
   
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent | React.MouseEvent | React.KeyboardEvent) => {
+    e?.preventDefault();
     if (!prompt.trim() || isLoading) return;
     
     const userMessage = prompt;
@@ -40,51 +38,47 @@ export function AIChat({ founder, className }: AIChatProps) {
     if (!hiddenButton) return;
     
     const handleDemoClick = () => {
-      const demoMessages = [
-        { 
-          role: 'user', 
-          content: "Hey, I just got off a call with Ethan from Aaptiv. He mentioned they lost the Aaptiv deal - can you help me understand what happened?" 
-        },
-        { 
+      // Add demo messages using the proper state management
+      addMessage({ 
+        role: 'user', 
+        content: "Hey, I just got off a call with Ethan from Aaptiv. He mentioned they lost the Aaptiv deal - can you help me understand what happened?" 
+      });
+      
+      // Simulate AI response after a short delay
+      setTimeout(() => {
+        addMessage({ 
           role: 'ai', 
           content: `I've analyzed the relevant communications about the Aaptiv opportunity. Based on the <span class="reference-tag">email thread from Jan 15-19</span> and <span class="reference-tag">discovery call transcript (Jan 8, 30 mins)</span>, here's what led to the loss:<br/><br/>Primary factor: Aaptiv chose a competitor (FitTech) that already had FDA compliance certifications in place. Ethan from Aaptiv mentioned in his follow-up email that DataSync's compliance roadmap shows Q3 2025 for FDA certification - a 6-month gap that was dealbreaking.` 
-        }
-      ];
-      
-      // Add demo messages to the chat
-      for (const msg of demoMessages) {
-        const messageEl = document.createElement('div');
-        messageEl.className = `message ${msg.role === 'user' ? 'user-message' : 'ai-message'}`;
-        messageEl.innerHTML = `<div class="message-content">${msg.content}</div>`;
-        chatContainerRef.current?.appendChild(messageEl);
-      }
-      
-      // Scroll to bottom
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        });
+      }, 500);
     };
     
     hiddenButton.addEventListener('click', handleDemoClick);
     return () => {
       hiddenButton.removeEventListener('click', handleDemoClick);
     };
-  }, []);
+  }, [addMessage]);
   
   return (
     <Card className={cn("flex flex-col h-[500px] border shadow-sm", className)}>
       <CardContent className="flex-1 flex flex-col p-4">
         <div 
-          ref={chatContainerRef}
           className="flex-1 overflow-auto mb-4 space-y-4 pr-1 pb-2"
         >
           {messages.map((message, index) => (
             <div 
               key={index} 
               className={cn(
-                "message",
-                message.role === "user" ? "user-message" : "ai-message"
+                "flex",
+                message.role === "user" ? "justify-end" : "justify-start"
               )}
             >
-              <div className="message-content">
+              <div className={cn(
+                "max-w-[80%] rounded-lg px-4 py-2",
+                message.role === "user" 
+                  ? "bg-primary text-primary-foreground" 
+                  : "bg-muted"
+              )}>
                 {message.role === "ai" && message.content.includes('reference-tag') ? (
                   <div 
                     dangerouslySetInnerHTML={{ __html: message.content }}
@@ -96,26 +90,32 @@ export function AIChat({ founder, className }: AIChatProps) {
             </div>
           ))}
           {isLoading && (
-            <div className="ai-message loading">
-              <div className="message-content flex items-center gap-2">
+            <div className="flex justify-start">
+              <div className="bg-muted rounded-lg px-4 py-2 flex items-center gap-2">
                 <Loader2 className="h-4 w-4 animate-spin" />
-                <p>AI is thinking...</p>
+                <span>AI is thinking...</span>
               </div>
             </div>
           )}
           <div ref={messagesEndRef} />
         </div>
         
-        <form onSubmit={handleSubmit} className="flex gap-2 items-end mt-auto">
+        <div className="flex gap-2 items-end mt-auto">
           <Textarea 
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSubmit(e);
+              }
+            }}
             placeholder="Ask about this founder's progress, challenges, or milestones..."
             className="min-h-[80px] resize-none flex-1"
             disabled={isLoading}
           />
           <Button 
-            type="submit" 
+            onClick={handleSubmit}
             size="icon" 
             className="h-10 w-10"
             disabled={!prompt.trim() || isLoading}
@@ -126,7 +126,7 @@ export function AIChat({ founder, className }: AIChatProps) {
               <SendHorizontal className="h-4 w-4" />
             )}
           </Button>
-        </form>
+        </div>
       </CardContent>
     </Card>
   );
