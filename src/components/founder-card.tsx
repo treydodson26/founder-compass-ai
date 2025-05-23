@@ -40,45 +40,51 @@ export function FounderCard({ founder, className }: FounderCardProps) {
   return (
     <Card 
       className={cn(
-        "overflow-hidden transition-all duration-200 hover:shadow-md cursor-pointer animate-fade-in",
+        "overflow-hidden transition-all duration-200 hover:shadow-md cursor-pointer animate-fade-in border-t-4",
+        {
+          "border-blue-400": founder.stage === "Pre-Product",
+          "border-emerald-400": founder.stage === "Founder-Led Sales",
+          "border-purple-400": founder.stage === "Expansion",
+          "border-amber-400": founder.stage === "Pre-Customer",
+        },
         className
       )}
       onClick={handleClick}
     >
-      <CardContent className="p-5 flex flex-col gap-4">
+      <CardContent className="p-6 flex flex-col gap-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Avatar className="h-10 w-10 border">
+            <Avatar className="h-12 w-12 border shadow-sm">
               <AvatarImage src={founder.avatar} alt={founder.name} />
-              <AvatarFallback>{getFallbackInitials(founder.name)}</AvatarFallback>
+              <AvatarFallback className="bg-gray-50 text-gray-600">{getFallbackInitials(founder.name)}</AvatarFallback>
             </Avatar>
             <div>
-              <h3 className="font-medium">{founder.name}</h3>
+              <h3 className="font-semibold text-lg">{founder.name}</h3>
               <p className="text-sm text-muted-foreground">{founder.companyName}</p>
             </div>
           </div>
           <StatusIndicator status={founder.status} />
         </div>
         
-        <div className="grid grid-cols-2 gap-3 pt-2">
-          <div>
-            <p className="text-xs text-muted-foreground mb-1">Current Stage</p>
+        <div className="grid grid-cols-2 gap-4 pt-2">
+          <div className="bg-gray-50 dark:bg-gray-900/40 rounded-lg p-3">
+            <p className="text-xs text-muted-foreground mb-1.5 font-medium">Current Stage</p>
             <StageBadge stage={founder.stage} />
           </div>
-          <div>
-            <p className="text-xs text-muted-foreground mb-1">ARR</p>
-            <p className="font-medium">
+          <div className="bg-gray-50 dark:bg-gray-900/40 rounded-lg p-3">
+            <p className="text-xs text-muted-foreground mb-1.5 font-medium">ARR</p>
+            <p className="font-semibold text-base">
               <FormattedCurrency value={founder.arr} notation="compact" />
             </p>
           </div>
-          <div>
-            <p className="text-xs text-muted-foreground mb-1">First Contact</p>
+          <div className="bg-gray-50 dark:bg-gray-900/40 rounded-lg p-3">
+            <p className="text-xs text-muted-foreground mb-1.5 font-medium">First Contact</p>
             <p className="text-sm">
               <TimeSince date={founder.firstInteraction} useActualDate={true} />
             </p>
           </div>
-          <div>
-            <p className="text-xs text-muted-foreground mb-1">Last Interaction</p>
+          <div className="bg-gray-50 dark:bg-gray-900/40 rounded-lg p-3">
+            <p className="text-xs text-muted-foreground mb-1.5 font-medium">Last Interaction</p>
             <p className="text-sm">
               <TimeSince date={founder.lastInteraction} useActualDate={true} />
             </p>
