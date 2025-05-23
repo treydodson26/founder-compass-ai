@@ -18,12 +18,8 @@ export function AppLayout({
         <Sidebar variant="inset" className="bg-bella-navy">
           <SidebarHeader className="border-b border-sidebar-border/30">
             <div className="px-3 py-6 flex flex-col items-center justify-center">
-              <img 
-                src="/lovable-uploads/1a95ea61-2d32-431f-9307-06a43d4cf767.png" 
-                alt="Abelian Logo" 
-                className="h-16 w-16 mb-4"
-              />
-              <h1 className="font-bold text-xl text-white">Founder OS</h1>
+              
+              <h1 className="font-bold text-xl text-white text-center">Founder Management</h1>
               <p className="text-2xl font-bold text-bella-gold mt-2">ABELIAN</p>
             </div>
           </SidebarHeader>
