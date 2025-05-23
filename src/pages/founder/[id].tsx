@@ -45,13 +45,13 @@ const FounderDetail = () => {
     setIsLoadingAI(true);
 
     // Check for demo trigger phrase
-    if (userInput.toLowerCase().includes("sarah") || userInput.toLowerCase().includes("acme")) {
+    if (userInput.toLowerCase().includes("ethan") || userInput.toLowerCase().includes("aaptiv")) {
       // Demo conversation
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       setChatHistory(prev => [...prev, { 
         type: 'ai' as 'ai', 
-        content: `I've analyzed the relevant communications about the Acme Healthcare opportunity. Based on the <span class="reference-tag">email thread from Jan 15-19</span> and <span class="reference-tag">discovery call transcript (Jan 8, 30 mins)</span>, here's what led to the loss:<br/><br/>Primary factor: Acme chose a competitor (MedConnect) that already had FDA compliance certifications in place. Sarah mentioned in her follow-up email that DataSync's compliance roadmap shows Q3 2025 for FDA certification - a 6-month gap that was dealbreaking.`, 
+        content: `I've analyzed the relevant communications about the Aaptiv opportunity. Based on the <span class="reference-tag">email thread from Jan 15-19</span> and <span class="reference-tag">discovery call transcript (Jan 8, 30 mins)</span>, here's what led to the loss:<br/><br/>Primary factor: Aaptiv chose a competitor (FitTech) that already had FDA compliance certifications in place. Ethan from Aaptiv mentioned in his follow-up email that DataSync's compliance roadmap shows Q3 2025 for FDA certification - a 6-month gap that was dealbreaking.`, 
         timestamp: new Date().toLocaleTimeString(),
         isDemo: true
       }]);
@@ -97,12 +97,12 @@ const FounderDetail = () => {
     },
     {
       type: 'user',
-      content: "Hey, I just got off a call with Sarah. She mentioned they lost the Acme Healthcare deal - can you help me understand what happened?",
+      content: "Hey, I just got off a call with Ethan from Aaptiv. He mentioned they lost the Aaptiv deal - can you help me understand what happened?",
       timestamp: new Date().toLocaleTimeString()
     },
     {
       type: 'ai',
-      content: `I've analyzed the relevant communications about the Acme Healthcare opportunity. Based on the <span class="reference-tag">email thread from Jan 15-19</span> and <span class="reference-tag">discovery call transcript (Jan 8, 30 mins)</span>, here's what led to the loss:<br/><br/>Primary factor: Acme chose a competitor (MedConnect) that already had FDA compliance certifications in place. Sarah mentioned in her follow-up email that DataSync's compliance roadmap shows Q3 2025 for FDA certification - a 6-month gap that was dealbreaking.`,
+      content: `I've analyzed the relevant communications about the Aaptiv opportunity. Based on the <span class="reference-tag">email thread from Jan 15-19</span> and <span class="reference-tag">discovery call transcript (Jan 8, 30 mins)</span>, here's what led to the loss:<br/><br/>Primary factor: Aaptiv chose a competitor (FitTech) that already had FDA compliance certifications in place. Ethan from Aaptiv mentioned in his follow-up email that DataSync's compliance roadmap shows Q3 2025 for FDA certification - a 6-month gap that was dealbreaking.`,
       timestamp: new Date().toLocaleTimeString(),
       isDemo: true
     }]);
