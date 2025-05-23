@@ -7,83 +7,83 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    --background: 214 91% 97%; /* Facebook light gray background */
+    --foreground: 220 20% 2%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 220 20% 2%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 220 20% 2%;
 
-    --primary: 222 47% 11%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 214 89% 52%; /* Facebook blue */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 220 20% 2%;
 
     --muted: 210 40% 96%;
     --muted-foreground: 215 16% 47%;
 
-    --accent: 210 40% 96%;
-    --accent-foreground: 222 47% 11%;
+    --accent: 214 89% 94%; /* Light Facebook blue */
+    --accent-foreground: 214 89% 52%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: 222 47% 11%;
+    --ring: 214 89% 52%;
 
-    --radius: 0.5rem;
+    --radius: 8px; /* Facebook uses more rounded corners */
 
-    --sidebar-background: 220 20% 97%;
-    --sidebar-foreground: 240 5% 26%;
-    --sidebar-primary: 215 90% 50%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 5% 96%;
-    --sidebar-accent-foreground: 240 6% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217 92% 60%;
+    --sidebar-background: 214 89% 52%; /* Facebook blue sidebar */
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 214 95% 93%;
+    --sidebar-primary-foreground: 214 89% 52%;
+    --sidebar-accent: 214 89% 48%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 214 89% 48%;
+    --sidebar-ring: 214 89% 60%;
   }
 
   .dark {
-    --background: 222 47% 5%;
-    --foreground: 210 40% 98%;
+    --background: 224 71% 4%;
+    --foreground: 0 0% 100%;
 
-    --card: 222 47% 7%;
-    --card-foreground: 210 40% 98%;
+    --card: 224 71% 4%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 222 47% 5%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222 47% 11%;
+    --primary: 214 89% 52%; /* Keep Facebook blue in dark mode */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 217 33% 18%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 215 27% 17%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 217 33% 18%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 215 27% 17%;
+    --muted-foreground: 218 11% 65%;
 
-    --accent: 217 33% 18%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 215 27% 17%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217 33% 18%;
-    --input: 217 33% 18%;
-    --ring: 213 27% 84%;
+    --border: 215 27% 17%;
+    --input: 215 27% 17%;
+    --ring: 214 89% 60%;
     
-    --sidebar-background: 222 47% 8%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 215 90% 60%;
+    --sidebar-background: 224 71% 10%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 214 89% 52%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 215 25% 15%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 215 25% 15%;
-    --sidebar-ring: 217 92% 60%;
+    --sidebar-accent: 214 71% 33%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 214 71% 33%;
+    --sidebar-ring: 214 89% 60%;
   }
 }
 
@@ -132,16 +132,26 @@
     @apply bg-red-500;
   }
 
+  /* Facebook-style nav item */
   .nav-item {
-    @apply px-4 py-2.5 rounded-lg text-gray-600 transition-all duration-200 mb-0.5;
+    @apply px-4 py-2.5 rounded-lg text-facebook-secondary-text transition-all duration-200 mb-0.5;
   }
 
   .nav-item:hover {
-    @apply bg-gray-100 text-gray-900;
+    @apply bg-facebook-grey text-facebook-text;
   }
 
   .nav-item.active {
-    @apply bg-blue-50 text-blue-600 font-medium;
+    @apply bg-facebook-light text-facebook-navy font-medium;
   }
+}
+
+/* Facebook-inspired styling */
+.reference-tag {
+  background-color: rgba(24, 119, 242, 0.1);
+  border-radius: 4px;
+  padding: 2px 4px;
+  color: #1877F2;
+  border: 1px solid rgba(24, 119, 242, 0.3);
 }
 

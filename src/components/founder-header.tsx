@@ -26,12 +26,13 @@ export function FounderHeader({ founder }: FounderHeaderProps) {
   };
   
   return (
-    <div className="bg-card p-6 rounded-lg shadow-sm border mb-6">
+    <div className="bg-white p-6 rounded-lg shadow-sm border mb-6">
       <div className="flex flex-wrap gap-4 justify-between items-center mb-4">
         <Button 
           variant="outline" 
           size="sm"
           onClick={() => navigate("/")}
+          className="border-facebook-navy/20 hover:bg-facebook-light hover:text-facebook-navy"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to all founders
@@ -41,7 +42,8 @@ export function FounderHeader({ founder }: FounderHeaderProps) {
           <Button 
             variant="outline" 
             size="sm"
-            onClick={() => navigate(`/resources?founder=${founder.id}`)} 
+            onClick={() => navigate(`/resources?founder=${founder.id}`)}
+            className="border-facebook-navy/20 hover:bg-facebook-light hover:text-facebook-navy" 
           >
             <LibraryIcon className="h-4 w-4 mr-2" />
             View Resources
@@ -51,17 +53,17 @@ export function FounderHeader({ founder }: FounderHeaderProps) {
       
       <div className="flex flex-col md:flex-row justify-between gap-6 items-start md:items-center">
         <div className="flex items-center gap-4">
-          <Avatar className="h-16 w-16 border">
+          <Avatar className="h-16 w-16 border-2 border-facebook-light">
             <AvatarImage src={founder.avatar} alt={founder.name} />
-            <AvatarFallback className="text-xl">
+            <AvatarFallback className="text-xl bg-facebook-navy text-white">
               {getFallbackInitials(founder.name)}
             </AvatarFallback>
           </Avatar>
           
           <div>
-            <h1 className="text-2xl font-semibold">{founder.name}</h1>
+            <h1 className="text-2xl font-semibold text-facebook-text">{founder.name}</h1>
             <div className="flex items-center gap-3 mt-1">
-              <p className="text-lg text-muted-foreground">{founder.companyName}</p>
+              <p className="text-lg text-facebook-secondary-text">{founder.companyName}</p>
               <StatusIndicator status={founder.status} showLabel />
             </div>
           </div>
@@ -69,24 +71,24 @@ export function FounderHeader({ founder }: FounderHeaderProps) {
         
         <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-3 pt-2 w-full md:w-auto">
           <div>
-            <p className="text-sm text-muted-foreground">Stage</p>
+            <p className="text-sm text-facebook-secondary-text">Stage</p>
             <div className="mt-1">
               <StageBadge stage={founder.stage} />
             </div>
           </div>
           <div>
-            <p className="text-sm text-muted-foreground">ARR</p>
-            <p className="text-lg font-medium">
+            <p className="text-sm text-facebook-secondary-text">ARR</p>
+            <p className="text-lg font-medium text-facebook-text">
               <FormattedCurrency value={founder.arr} />
             </p>
           </div>
           <div>
-            <p className="text-sm text-muted-foreground">Last Contact</p>
-            <p className="font-medium"><TimeSince date={founder.lastInteraction} /></p>
+            <p className="text-sm text-facebook-secondary-text">Last Contact</p>
+            <p className="font-medium text-facebook-text"><TimeSince date={founder.lastInteraction} /></p>
           </div>
           <div className="md:col-span-3 mt-1">
-            <p className="text-sm text-muted-foreground mb-1">Bio</p>
-            <p>{founder.bio}</p>
+            <p className="text-sm text-facebook-secondary-text mb-1">Bio</p>
+            <p className="text-facebook-text">{founder.bio}</p>
           </div>
         </div>
       </div>

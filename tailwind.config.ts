@@ -25,6 +25,14 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				facebook: {
+					'navy': '#1877F2', // Facebook blue
+					'light': '#E7F3FF',
+					'dark': '#166FE5',
+					'grey': '#F0F2F5', // Facebook background grey
+					'text': '#050505', // Facebook primary text
+					'secondary-text': '#65676B', // Facebook secondary text
+				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
@@ -120,3 +128,4 @@ export default {
 	},
 	plugins: [require("tailwindcss-animate")],
 } satisfies Config;
+

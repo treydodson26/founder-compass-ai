@@ -24,7 +24,8 @@ import {
   ChevronRight, 
   Calendar,
   FileText,
-  Phone
+  Phone,
+  MessageCircle
 } from "lucide-react";
 
 interface AppLayoutProps {
@@ -41,26 +42,26 @@ export function AppLayout({ children }: AppLayoutProps) {
   return (
     <SidebarProvider defaultOpen={true}>
       <div className="flex min-h-screen w-full">
-        <Sidebar variant="inset">
-          <SidebarHeader className="border-b border-border/50">
-            <div className="px-2 py-3 flex items-center gap-2">
-              <div className="flex items-center justify-center w-10 h-10 rounded-md bg-primary text-primary-foreground">
+        <Sidebar variant="inset" className="bg-facebook-navy">
+          <SidebarHeader className="border-b border-facebook-dark/20">
+            <div className="px-3 py-4 flex items-center gap-2">
+              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white text-facebook-navy">
                 <FileText size={20} />
               </div>
-              <div>
-                <h1 className="font-bold text-lg">Founder OS</h1>
-                <p className="text-xs text-muted-foreground">Founder Management</p>
+              <div className="text-white">
+                <h1 className="font-bold text-xl">Founder OS</h1>
+                <p className="text-xs opacity-80">Founder Management</p>
               </div>
             </div>
           </SidebarHeader>
           
           <SidebarContent>
             <SidebarGroup>
-              <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+              <SidebarGroupLabel className="text-white/70">Navigation</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive("/")} tooltip="Dashboard">
+                    <SidebarMenuButton asChild isActive={isActive("/")} tooltip="Dashboard" className="text-white hover:bg-facebook-dark">
                       <Link to="/">
                         <Home />
                         <span>Dashboard</span>
@@ -68,7 +69,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive("/founders")} tooltip="Founder Gallery">
+                    <SidebarMenuButton asChild isActive={isActive("/founders")} tooltip="Founder Gallery" className="text-white hover:bg-facebook-dark">
                       <Link to="/founders">
                         <Users />
                         <span>Founder Gallery</span>
@@ -76,7 +77,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive("/resources")} tooltip="Resources">
+                    <SidebarMenuButton asChild isActive={isActive("/resources")} tooltip="Resources" className="text-white hover:bg-facebook-dark">
                       <Link to="/resources">
                         <FileText />
                         <span>Resources</span>
@@ -84,7 +85,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive("/alerts")} tooltip="Alerts">
+                    <SidebarMenuButton asChild isActive={isActive("/alerts")} tooltip="Alerts" className="text-white hover:bg-facebook-dark">
                       <Link to="/">
                         <Bell />
                         <span>Alerts</span>
@@ -92,7 +93,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive("/settings")} tooltip="Settings">
+                    <SidebarMenuButton asChild isActive={isActive("/settings")} tooltip="Settings" className="text-white hover:bg-facebook-dark">
                       <Link to="/">
                         <Settings />
                         <span>Settings</span>
@@ -104,28 +105,28 @@ export function AppLayout({ children }: AppLayoutProps) {
             </SidebarGroup>
             
             <SidebarGroup>
-              <SidebarGroupLabel>Upcoming Meetings</SidebarGroupLabel>
+              <SidebarGroupLabel className="text-white/70">Upcoming Meetings</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
+                    <SidebarMenuButton asChild className="text-white hover:bg-facebook-dark">
                       <div>
-                        <Calendar className="text-blue-500" />
+                        <Calendar className="text-white" />
                         <div>
                           <span>Acme Co Meeting</span>
-                          <span className="block text-xs text-muted-foreground">Today, 3:00 PM</span>
+                          <span className="block text-xs text-white/70">Today, 3:00 PM</span>
                         </div>
                         <ChevronRight className="ml-auto h-4 w-4 opacity-50" />
                       </div>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
+                    <SidebarMenuButton asChild className="text-white hover:bg-facebook-dark">
                       <div>
-                        <Phone className="text-emerald-500" />
+                        <Phone className="text-white" />
                         <div>
                           <span>Follow-up Call</span>
-                          <span className="block text-xs text-muted-foreground">Tomorrow, 11:30 AM</span>
+                          <span className="block text-xs text-white/70">Tomorrow, 11:30 AM</span>
                         </div>
                         <ChevronRight className="ml-auto h-4 w-4 opacity-50" />
                       </div>
@@ -136,26 +137,26 @@ export function AppLayout({ children }: AppLayoutProps) {
             </SidebarGroup>
           </SidebarContent>
           
-          <SidebarFooter className="border-t border-border/50">
-            <div className="p-2">
-              <SidebarMenuButton asChild>
+          <SidebarFooter className="border-t border-facebook-dark/20">
+            <div className="p-3">
+              <SidebarMenuButton asChild className="text-white hover:bg-facebook-dark">
                 <div>
-                  <Avatar className="h-9 w-9">
+                  <Avatar className="h-9 w-9 border-2 border-white/20">
                     <AvatarImage src="https://github.com/shadcn.png" alt="User" />
-                    <AvatarFallback>JD</AvatarFallback>
+                    <AvatarFallback className="bg-facebook-dark text-white">JD</AvatarFallback>
                   </Avatar>
                   <div>
                     <span className="font-medium text-sm">John Doe</span>
-                    <span className="block text-xs text-muted-foreground">Administrator</span>
+                    <span className="block text-xs text-white/70">Administrator</span>
                   </div>
-                  <Settings className="ml-auto h-4 w-4 opacity-50" />
+                  <MessageCircle className="ml-auto h-4 w-4 opacity-50" />
                 </div>
               </SidebarMenuButton>
             </div>
           </SidebarFooter>
         </Sidebar>
         
-        <SidebarInset>
+        <SidebarInset className="bg-facebook-grey">
           <div className="flex flex-col h-full">
             {children}
           </div>
