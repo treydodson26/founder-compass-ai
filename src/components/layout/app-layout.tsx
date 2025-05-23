@@ -25,7 +25,6 @@ import {
   FileText,
   Phone,
   MessageSquare,
-  BookOpen,
   ArrowRight,
 } from "lucide-react";
 
@@ -46,9 +45,11 @@ export function AppLayout({ children }: AppLayoutProps) {
         <Sidebar variant="inset" className="bg-bella-navy">
           <SidebarHeader className="border-b border-sidebar-border/30">
             <div className="px-3 py-4 flex items-center gap-2">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-bella-gold text-bella-navy">
-                <BookOpen size={18} strokeWidth={2.25} />
-              </div>
+              <img 
+                src="/lovable-uploads/36d34911-cfc5-44d6-8a10-62ecd88e9c9d.png" 
+                alt="Abelian Logo" 
+                className="h-10 w-10"
+              />
               <div className="text-white">
                 <h1 className="font-bold text-xl">Founder OS</h1>
                 <p className="text-xs opacity-80">Founder Management</p>
