@@ -40,52 +40,46 @@ export function FounderCard({ founder, className }: FounderCardProps) {
   return (
     <Card 
       className={cn(
-        "overflow-hidden transition-all duration-200 hover:shadow-md cursor-pointer animate-fade-in border-t-4 bg-black text-white",
-        {
-          "border-blue-400": founder.stage === "Pre-Product",
-          "border-emerald-400": founder.stage === "Founder-Led Sales",
-          "border-purple-400": founder.stage === "Expansion",
-          "border-amber-400": founder.stage === "Pre-Customer",
-        },
+        "overflow-hidden transition-all duration-200 cursor-pointer animate-fade-in bg-white border border-gray-200 shadow-sm rounded-2xl hover:shadow-md hover:-translate-y-1",
         className
       )}
       onClick={handleClick}
     >
-      <CardContent className="p-6 flex flex-col gap-5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Avatar className="h-12 w-12 border shadow-sm">
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-4">
+            <Avatar className="h-14 w-14 border shadow-sm">
               <AvatarImage src={founder.avatar} alt={founder.name} />
-              <AvatarFallback className="bg-gray-800 text-gray-200">{getFallbackInitials(founder.name)}</AvatarFallback>
+              <AvatarFallback className="bg-gray-100 text-gray-600">{getFallbackInitials(founder.name)}</AvatarFallback>
             </Avatar>
             <div>
-              <h3 className="font-semibold text-lg text-white">{founder.name}</h3>
-              <p className="text-sm text-gray-300">{founder.companyName}</p>
+              <h3 className="font-semibold text-lg leading-tight text-gray-900">{founder.name}</h3>
+              <p className="text-sm text-gray-500">{founder.companyName}</p>
             </div>
           </div>
           <StatusIndicator status={founder.status} />
         </div>
         
-        <div className="grid grid-cols-2 gap-4 pt-2">
-          <div className="bg-gray-900 rounded-lg p-3">
-            <p className="text-xs text-gray-400 mb-1.5 font-medium">Current Stage</p>
-            <StageBadge stage={founder.stage} />
-          </div>
-          <div className="bg-gray-900 rounded-lg p-3">
-            <p className="text-xs text-gray-400 mb-1.5 font-medium">ARR</p>
-            <p className="font-semibold text-base text-white">
+        <div className="grid grid-cols-2 gap-6 mt-4">
+          <div>
+            <p className="text-xs font-medium text-gray-500 mb-1">ARR</p>
+            <p className="font-bold text-2xl text-gray-900">
               <FormattedCurrency value={founder.arr} notation="compact" />
             </p>
           </div>
-          <div className="bg-gray-900 rounded-lg p-3">
-            <p className="text-xs text-gray-400 mb-1.5 font-medium">First Contact</p>
-            <p className="text-sm text-white">
+          <div>
+            <p className="text-xs font-medium text-gray-500 mb-1">Current Stage</p>
+            <StageBadge stage={founder.stage} />
+          </div>
+          <div>
+            <p className="text-xs font-medium text-gray-500 mb-1">First Contact</p>
+            <p className="text-sm font-medium text-gray-700">
               <TimeSince date={founder.firstInteraction} useActualDate={true} />
             </p>
           </div>
-          <div className="bg-gray-900 rounded-lg p-3">
-            <p className="text-xs text-gray-400 mb-1.5 font-medium">Last Interaction</p>
-            <p className="text-sm text-white">
+          <div>
+            <p className="text-xs font-medium text-gray-500 mb-1">Last Interaction</p>
+            <p className="text-sm font-medium text-gray-700">
               <TimeSince date={founder.lastInteraction} useActualDate={true} />
             </p>
           </div>

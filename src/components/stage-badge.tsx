@@ -10,19 +10,19 @@ interface StageBadgeProps {
 }
 
 export function StageBadge({ stage, className }: StageBadgeProps) {
-  const stageColors = {
-    "Pre-Product": "bg-slate-200 text-slate-800 hover:bg-slate-300",
-    "Pre-Customer": "bg-blue-200 text-blue-800 hover:bg-blue-300",
-    "Founder-Led Sales": "bg-emerald-200 text-emerald-800 hover:bg-emerald-300",
-    "Expansion": "bg-purple-200 text-purple-800 hover:bg-purple-300"
+  const stageStyles = {
+    "Pre-Product": "bg-blue-50 text-blue-600 border border-blue-200",
+    "Pre-Customer": "bg-amber-50 text-amber-600 border border-amber-200",
+    "Founder-Led Sales": "bg-emerald-50 text-emerald-600 border border-emerald-200",
+    "Expansion": "bg-indigo-50 text-indigo-600 border border-indigo-200"
   };
 
   return (
     <Badge 
       variant="outline" 
       className={cn(
-        "font-medium border-0", 
-        stageColors[stage],
+        "rounded-full py-1 px-3 font-medium text-xs border-0", 
+        stageStyles[stage],
         className
       )}
     >

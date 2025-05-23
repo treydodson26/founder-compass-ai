@@ -109,19 +109,19 @@
   }
   
   .status-on-track {
-    @apply bg-green-500;
+    @apply bg-emerald-500;
   }
   
   .status-on-track::before {
-    @apply bg-green-500;
+    @apply bg-emerald-500;
   }
   
   .status-needs-attention {
-    @apply bg-yellow-500;
+    @apply bg-amber-500;
   }
   
   .status-needs-attention::before {
-    @apply bg-yellow-500;
+    @apply bg-amber-500;
   }
   
   .status-at-risk {
@@ -131,4 +131,17 @@
   .status-at-risk::before {
     @apply bg-red-500;
   }
+
+  .nav-item {
+    @apply px-4 py-2.5 rounded-lg text-gray-600 transition-all duration-200 mb-0.5;
+  }
+
+  .nav-item:hover {
+    @apply bg-gray-100 text-gray-900;
+  }
+
+  .nav-item.active {
+    @apply bg-blue-50 text-blue-600 font-medium;
+  }
 }
+

@@ -36,7 +36,7 @@ export function FoundersGrid({ founders }: FoundersGridProps) {
   }, [founders, search, selectedStages, selectedStatuses]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <FoundersFilter 
         search={search}
         setSearch={setSearch}
@@ -46,7 +46,7 @@ export function FoundersGrid({ founders }: FoundersGridProps) {
         setSelectedStatuses={setSelectedStatuses}
       />
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredFounders.map((founder) => (
           <FounderCard key={founder.id} founder={founder} />
         ))}
