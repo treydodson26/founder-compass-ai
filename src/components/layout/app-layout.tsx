@@ -19,7 +19,11 @@ export function AppLayout({
         <Sidebar variant="inset" className="bg-bella-navy">
           <SidebarHeader className="border-b border-sidebar-border/30">
             <div className="px-3 py-6 flex flex-col items-center justify-center">
-              <p className="text-2xl font-bold text-bella-gold mb-2">ABELIAN</p>
+              <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Pear_VC_logo.svg/120/Pear_VC_logo.svg.png"
+                alt="Pear VC"
+                className="h-12 w-auto mb-2"
+              />
             </div>
           </SidebarHeader>
           
