@@ -18,7 +18,7 @@ const FounderDetail = () => {
   }
   
   return (
-    <div className="container py-6">
+    <div className="container py-6 max-w-7xl mx-auto px-4 sm:px-6 animate-fade-in">
       <FounderHeader founder={founder} />
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -28,18 +28,6 @@ const FounderDetail = () => {
         
         <FounderSidebar founder={founder} />
       </div>
-      
-      <style>
-        {`
-        .reference-tag {
-          background-color: rgba(59, 130, 246, 0.1);
-          border-radius: 4px;
-          padding: 2px 4px;
-          color: rgb(59, 130, 246);
-          border: 1px solid rgba(59, 130, 246, 0.3);
-        }
-        `}
-      </style>
     </div>
   );
 };
