@@ -24,7 +24,7 @@ export function AppLayout({ children }: AppLayoutProps) {
               <img 
                 src="/lovable-uploads/6f2dd2ee-c441-463c-b6e1-483710739210.png"
                 alt="Pear VC"
-                className="h-12 w-auto mb-2"
+                className="h-12 w-auto mb-2 brightness-0 invert"
                 onError={(e) => {
                   console.error("Failed to load Pear VC logo:", e);
                 }}
