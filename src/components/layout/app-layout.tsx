@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarInset } from "@/components/ui/sidebar";
@@ -18,10 +19,14 @@ export function AppLayout({
         <Sidebar variant="inset" className="bg-bella-navy">
           <SidebarHeader className="border-b border-sidebar-border/30">
             <div className="px-3 py-6 flex flex-col items-center justify-center">
-              
+              <img 
+                src="/lovable-uploads/1a95ea61-2d32-431f-9307-06a43d4cf767.png" 
+                alt="Abelian Logo" 
+                className="h-16 w-16 mb-4"
+              />
               <div className="text-white text-center">
                 <h1 className="font-bold text-xl">Founder OS</h1>
-                <p className="text-xs opacity-80 px-[40px]">ABELIAN</p>
+                <p className="text-2xl font-bold text-bella-gold mt-2">ABELIAN</p>
               </div>
             </div>
           </SidebarHeader>
