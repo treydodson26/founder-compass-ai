@@ -20,16 +20,23 @@ export function useAiChat(founder: Founder) {
   const [retryCount, setRetryCount] = useState(0);
   const maxRetries = 3;
 
+  const addMessage = (message: Message) => {
+    setMessages(prev => [...prev, message]);
+  };
+
   const sendMessage = async (prompt: string) => {
     if (!prompt.trim()) return;
     
     try {
       setIsLoading(true);
+      console.log('Starting sendMessage with prompt:', prompt);
       
       // Add user message
       const userMessage: Message = { role: 'user', content: prompt };
       const updatedMessages = [...messages, userMessage];
       setMessages(updatedMessages);
+      
+      console.log('Calling OpenAI service with messages count:', updatedMessages.length);
       
       // Call OpenAI via our service
       const aiResponse = await openaiService.sendMessage(
@@ -38,17 +45,22 @@ export function useAiChat(founder: Founder) {
         messages
       );
       
+      console.log('Received AI response:', aiResponse);
+      
       // Add AI response
       const aiMessage: Message = { role: 'ai', content: aiResponse };
       setMessages([...updatedMessages, aiMessage]);
       setRetryCount(0); // Reset retry count on success
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.error('Error sending message - full error object:', error);
+      console.error('Error message:', error instanceof Error ? error.message : 'Unknown error');
+      console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace');
       
       // Implement retry logic
       if (retryCount < maxRetries) {
         const nextRetry = retryCount + 1;
         setRetryCount(nextRetry);
+        console.log(`Retrying request (${nextRetry}/${maxRetries})...`);
         toast({
           title: 'Retrying',
           description: `Connection issue. Retrying (${nextRetry}/${maxRetries})...`,
@@ -62,22 +74,24 @@ export function useAiChat(founder: Founder) {
       }
       
       // If all retries failed
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      console.error('All retries failed. Final error:', errorMessage);
+      
       toast({
         title: 'Error',
-        description: 'Failed to get a response from AI. Please try again later.',
+        description: `Failed to get response: ${errorMessage}`,
         variant: 'destructive',
       });
       
       // Add error message to chat
-      const errorMessage: Message = { 
+      const errorChatMessage: Message = { 
         role: 'ai', 
-        content: "I'm sorry, I'm having trouble connecting right now. Please try again later or use the 'Load Demo' button to see example interactions." 
+        content: `I'm sorry, I'm having trouble connecting right now. Error: ${errorMessage}. Please try again later or use the 'Load Demo' button to see example interactions.` 
       };
       
-      // Fix: Properly type the user message in the error case as Message type
       const userMessage: Message = { role: 'user', content: prompt };
       const updatedMessages = [...messages, userMessage];
-      setMessages([...updatedMessages, errorMessage]);
+      setMessages([...updatedMessages, errorChatMessage]);
     } finally {
       setIsLoading(false);
     }
@@ -87,5 +101,6 @@ export function useAiChat(founder: Founder) {
     messages,
     sendMessage,
     isLoading,
+    addMessage,
   };
 }

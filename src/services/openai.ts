@@ -34,7 +34,14 @@ Milestones: ${founder.milestones.map(m => `${m.title} (${m.completed ? 'Complete
   
   async sendMessage(prompt: string, founder: Founder, previousMessages: MessageInput[] = []): Promise<string> {
     try {
-      console.log('Sending message to OpenAI API:', { prompt, founder: founder.name, messagesCount: previousMessages.length });
+      console.log('OpenAI Service - Starting API call');
+      console.log('OpenAI Service - Supabase URL:', supabase.supabaseUrl);
+      console.log('OpenAI Service - Function URL will be:', `${supabase.supabaseUrl}/functions/v1/openai`);
+      console.log('OpenAI Service - Sending message to OpenAI API:', { 
+        prompt: prompt.substring(0, 100) + '...', 
+        founder: founder.name, 
+        messagesCount: previousMessages.length 
+      });
       
       // Prepare a simplified version of founder data to reduce payload size
       const simplifiedFounder = {
@@ -56,35 +63,69 @@ Milestones: ${founder.milestones.map(m => `${m.title} (${m.completed ? 'Complete
         content: msg.content
       }));
       
+      const requestBody = { 
+        prompt: prompt,
+        founder: simplifiedFounder,
+        previousMessages: simplifiedMessages
+      };
+      
+      console.log('OpenAI Service - Request body prepared, calling Supabase function...');
+      
       // Call our Supabase Edge Function that interfaces with OpenAI
       const { data, error } = await supabase.functions.invoke('openai', {
-        body: { 
-          prompt: prompt,
-          founder: simplifiedFounder,
-          previousMessages: simplifiedMessages
-        }
+        body: requestBody
       });
+      
+      console.log('OpenAI Service - Supabase function response received');
+      console.log('OpenAI Service - Response data:', data);
+      console.log('OpenAI Service - Response error:', error);
       
       if (error) {
-        console.error('Error calling OpenAI API:', error);
-        throw new Error(`Failed to get a response from AI: ${error.message}`);
+        console.error('OpenAI Service - Supabase function error details:', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        });
+        throw new Error(`Supabase function error: ${error.message} (Code: ${error.code})`);
       }
       
-      if (!data || !data.response) {
-        console.error('Invalid response format from OpenAI API:', data);
-        throw new Error('Received an invalid response format from the AI service');
+      if (!data) {
+        console.error('OpenAI Service - No data received from Supabase function');
+        throw new Error('No response data received from the AI service');
       }
       
-      console.log('Received response from OpenAI API');
+      if (!data.response) {
+        console.error('OpenAI Service - Invalid response format from OpenAI API:', data);
+        throw new Error(`Invalid response format from the AI service. Received: ${JSON.stringify(data)}`);
+      }
+      
+      console.log('OpenAI Service - Successfully received response from OpenAI API');
       return data.response;
     } catch (error) {
-      console.error('Error in OpenAI service:', error);
+      console.error('OpenAI Service - Error in OpenAI service:', error);
+      console.error('OpenAI Service - Error type:', typeof error);
+      console.error('OpenAI Service - Error constructor:', error?.constructor?.name);
+      
+      let errorMessage = 'Failed to get a response from AI. Please try again.';
+      
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      } else if (error && typeof error === 'object' && 'message' in error) {
+        errorMessage = String(error.message);
+      }
+      
+      console.error('OpenAI Service - Final error message:', errorMessage);
+      
       toast({
-        title: 'Error',
-        description: error instanceof Error ? error.message : 'Failed to get a response from AI. Please try again.',
+        title: 'Connection Error',
+        description: errorMessage,
         variant: 'destructive',
       });
-      throw error;
+      
+      throw new Error(errorMessage);
     }
   }
 }
