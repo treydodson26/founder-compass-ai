@@ -18,7 +18,7 @@ export function useAiChat(founder: Founder) {
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
-  const maxRetries = 2;
+  const maxRetries = 3;
 
   const sendMessage = async (prompt: string) => {
     if (!prompt.trim()) return;
@@ -47,15 +47,17 @@ export function useAiChat(founder: Founder) {
       
       // Implement retry logic
       if (retryCount < maxRetries) {
-        setRetryCount(prev => prev + 1);
+        const nextRetry = retryCount + 1;
+        setRetryCount(nextRetry);
         toast({
           title: 'Retrying',
-          description: `Connection issue. Retrying (${retryCount + 1}/${maxRetries})...`,
+          description: `Connection issue. Retrying (${nextRetry}/${maxRetries})...`,
           variant: 'default',
         });
         
-        // Retry after a delay
-        setTimeout(() => sendMessage(prompt), 2000);
+        // Retry after a delay with exponential backoff
+        const backoffTime = 1000 * Math.pow(2, nextRetry);
+        setTimeout(() => sendMessage(prompt), backoffTime);
         return;
       }
       
@@ -65,6 +67,13 @@ export function useAiChat(founder: Founder) {
         description: 'Failed to get a response from AI. Please try again later.',
         variant: 'destructive',
       });
+      
+      // Add error message to chat
+      const errorMessage: Message = { 
+        role: 'ai', 
+        content: "I'm sorry, I'm having trouble connecting right now. Please try again later or use the 'Load Demo' button to see example interactions." 
+      };
+      setMessages([...updatedMessages, errorMessage]);
     } finally {
       setIsLoading(false);
     }

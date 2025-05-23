@@ -36,23 +36,32 @@ Milestones: ${founder.milestones.map(m => `${m.title} (${m.completed ? 'Complete
     try {
       console.log('Sending message to OpenAI API:', { prompt, founder: founder.name, messagesCount: previousMessages.length });
       
+      // Prepare a simplified version of founder data to reduce payload size
+      const simplifiedFounder = {
+        name: founder.name,
+        companyName: founder.companyName,
+        arr: founder.arr,
+        stage: founder.stage,
+        resources: founder.resources,
+        metrics: founder.metrics,
+        milestones: founder.milestones.map(m => ({
+          title: m.title,
+          completed: m.completed
+        }))
+      };
+      
+      // Simplify previous messages to reduce payload size
+      const simplifiedMessages = previousMessages.map(msg => ({
+        role: msg.role,
+        content: msg.content
+      }));
+      
       // Call our Supabase Edge Function that interfaces with OpenAI
       const { data, error } = await supabase.functions.invoke('openai', {
         body: { 
           prompt: prompt,
-          founder: {
-            name: founder.name,
-            companyName: founder.companyName,
-            arr: founder.arr,
-            stage: founder.stage,
-            resources: founder.resources,
-            metrics: founder.metrics,
-            milestones: founder.milestones
-          },
-          previousMessages: previousMessages.map(msg => ({
-            role: msg.role,
-            content: msg.content
-          }))
+          founder: simplifiedFounder,
+          previousMessages: simplifiedMessages
         }
       });
       

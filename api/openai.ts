@@ -1,6 +1,7 @@
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { Configuration, OpenAIApi } from 'https://esm.sh/openai@3.2.1';
+import 'https://deno.land/x/xhr@0.1.0/mod.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -8,8 +9,11 @@ const corsHeaders = {
 };
 
 serve(async (req) => {
+  console.log("Edge function received request");
+  
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
+    console.log("Handling CORS preflight request");
     return new Response(null, {
       headers: corsHeaders,
       status: 204,
@@ -20,8 +24,11 @@ serve(async (req) => {
     // Get OpenAI API key from environment variables
     const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
     if (!openAIApiKey) {
+      console.error("OpenAI API key not found in environment variables");
       throw new Error('OpenAI API key not found in environment variables');
     }
+    
+    console.log("OpenAI API Key found, initializing OpenAI");
     
     // Initialize OpenAI
     const configuration = new Configuration({
@@ -30,9 +37,13 @@ serve(async (req) => {
     const openai = new OpenAIApi(configuration);
     
     // Parse request body
-    const { prompt, founder, previousMessages } = await req.json();
+    const requestData = await req.json();
+    const { prompt, founder, previousMessages } = requestData;
+    
+    console.log(`Processing request for founder: ${founder?.name}, message count: ${previousMessages?.length || 0}`);
     
     if (!prompt) {
+      console.error("Missing prompt in request");
       return new Response(
         JSON.stringify({ error: 'Prompt is required' }),
         { 
@@ -77,6 +88,8 @@ When you reference documents in your responses, wrap the reference in <span clas
       }
     ];
     
+    console.log("Sending request to OpenAI API");
+    
     // Call OpenAI API with a timeout
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
@@ -90,6 +103,7 @@ When you reference documents in your responses, wrap the reference in <span clas
       }, { signal: controller.signal });
       
       clearTimeout(timeoutId);
+      console.log("Received response from OpenAI API");
       
       // Return the response
       return new Response(
@@ -103,10 +117,11 @@ When you reference documents in your responses, wrap the reference in <span clas
       );
     } catch (apiError) {
       clearTimeout(timeoutId);
+      console.error("OpenAI API error:", apiError.message);
       throw apiError; // Re-throw to be caught by outer catch
     }
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error:', error.message, error.stack);
     
     return new Response(
       JSON.stringify({ 
