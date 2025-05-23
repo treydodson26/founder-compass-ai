@@ -32,7 +32,7 @@ export function FounderHeader({ founder }: FounderHeaderProps) {
           <img 
             src="/lovable-uploads/1a95ea61-2d32-431f-9307-06a43d4cf767.png" 
             alt="Abelian Logo" 
-            className="h-6 w-6 mr-2"
+            className="h-8 w-8 mr-2"
           />
           <Button 
             variant="secondary" 
