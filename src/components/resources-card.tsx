@@ -20,14 +20,22 @@ export function ResourcesCard({ founder, className }: ResourcesCardProps) {
     { 
       name: "Documents", 
       count: founder.resources.documents, 
-      icon: FileText,
+      icon: () => (
+        <svg viewBox="0 0 24 24" className="h-5 w-5 text-blue-500">
+          <path fill="currentColor" d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+        </svg>
+      ),
       color: "text-blue-500",
       type: "Document"
     },
     { 
       name: "Call Recordings", 
       count: founder.resources.callRecordings, 
-      icon: MessageSquare,
+      icon: () => (
+        <svg viewBox="0 0 24 24" className="h-5 w-5 text-purple-500">
+          <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z" />
+        </svg>
+      ),
       color: "text-purple-500",
       type: "Call Recording"
     },
@@ -35,14 +43,14 @@ export function ResourcesCard({ founder, className }: ResourcesCardProps) {
       name: "Email Threads", 
       count: founder.resources.emailThreads, 
       icon: Mail,
-      color: "text-amber-500",
+      color: "text-red-500",
       type: "Email Thread"
     },
     { 
       name: "Meeting Notes", 
       count: founder.resources.meetingNotes, 
       icon: Calendar,
-      color: "text-emerald-500",
+      color: "text-green-500",
       type: "Meeting Note"
     }
   ];
@@ -60,6 +68,7 @@ export function ResourcesCard({ founder, className }: ResourcesCardProps) {
         <div className="grid grid-cols-2 gap-4">
           {resources.map((resource) => {
             const filteredResources = founderResources.filter(r => r.type === resource.type);
+            const IconComponent = resource.icon;
             return (
               <div 
                 key={resource.name} 
@@ -68,7 +77,7 @@ export function ResourcesCard({ founder, className }: ResourcesCardProps) {
               >
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-muted">
-                    <resource.icon className={`h-5 w-5 ${resource.color}`} />
+                    <IconComponent className={`h-5 w-5 ${resource.color}`} />
                   </div>
                   <div>
                     <p className="text-sm font-medium">{resource.name}</p>
