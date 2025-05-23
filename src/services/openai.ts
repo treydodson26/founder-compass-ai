@@ -35,8 +35,8 @@ Milestones: ${founder.milestones.map(m => `${m.title} (${m.completed ? 'Complete
   async sendMessage(prompt: string, founder: Founder, previousMessages: MessageInput[] = []): Promise<string> {
     try {
       console.log('OpenAI Service - Starting API call');
-      console.log('OpenAI Service - Supabase URL:', supabase.supabaseUrl);
-      console.log('OpenAI Service - Function URL will be:', `${supabase.supabaseUrl}/functions/v1/openai`);
+      console.log('OpenAI Service - Supabase URL:', 'https://sokgjnkfazxhjqatfetk.supabase.co');
+      console.log('OpenAI Service - Function URL will be:', 'https://sokgjnkfazxhjqatfetk.supabase.co/functions/v1/openai');
       console.log('OpenAI Service - Sending message to OpenAI API:', { 
         prompt: prompt.substring(0, 100) + '...', 
         founder: founder.name, 
@@ -70,6 +70,7 @@ Milestones: ${founder.milestones.map(m => `${m.title} (${m.completed ? 'Complete
       };
       
       console.log('OpenAI Service - Request body prepared, calling Supabase function...');
+      console.log('OpenAI Service - Request body size:', JSON.stringify(requestBody).length, 'characters');
       
       // Call our Supabase Edge Function that interfaces with OpenAI
       const { data, error } = await supabase.functions.invoke('openai', {
@@ -110,6 +111,8 @@ Milestones: ${founder.milestones.map(m => `${m.title} (${m.completed ? 'Complete
       let errorMessage = 'Failed to get a response from AI. Please try again.';
       
       if (error instanceof Error) {
+        console.error('OpenAI Service - Error message:', error.message);
+        console.error('OpenAI Service - Error stack:', error.stack);
         errorMessage = error.message;
       } else if (typeof error === 'string') {
         errorMessage = error;
