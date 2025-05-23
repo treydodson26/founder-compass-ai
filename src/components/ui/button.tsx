@@ -10,15 +10,15 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-facebook-navy text-white hover:bg-facebook-dark",
+        default: "bg-uber-green text-white hover:bg-uber-green/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
           "border border-input bg-white hover:bg-accent hover:text-accent-foreground",
         secondary:
-          "bg-facebook-grey text-facebook-text hover:bg-facebook-grey/80",
-        ghost: "hover:bg-facebook-light hover:text-facebook-navy",
-        link: "text-facebook-navy underline-offset-4 hover:underline",
+          "bg-uber-grey text-uber-text hover:bg-uber-grey/80",
+        ghost: "hover:bg-uber-grey hover:text-uber-text",
+        link: "text-uber-green underline-offset-4 hover:underline",
       },
       size: {
         default: "h-10 px-4 py-2",

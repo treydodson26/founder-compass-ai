@@ -25,13 +25,14 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
-				facebook: {
-					'navy': '#1877F2', // Facebook blue
-					'light': '#E7F3FF',
-					'dark': '#166FE5',
-					'grey': '#F0F2F5', // Facebook background grey
-					'text': '#050505', // Facebook primary text
-					'secondary-text': '#65676B', // Facebook secondary text
+				uber: {
+					'black': '#000000', // Uber black
+					'white': '#FFFFFF', // Uber white
+					'green': '#06C167', // Uber green
+					'grey': '#F6F6F6', // Uber light grey
+					'dark-grey': '#333333', // Uber dark grey
+					'text': '#000000', // Uber primary text
+					'secondary-text': '#545454', // Uber secondary text
 				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
@@ -122,10 +123,9 @@ export default {
 				'slide-up': 'slide-up 0.4s ease-out'
 			},
 			fontFamily: {
-				sans: ['Inter var', 'sans-serif'],
+				sans: ['"UberMove"', 'Inter var', 'sans-serif'],
 			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
 } satisfies Config;
-

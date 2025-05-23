@@ -42,10 +42,10 @@ export function AppLayout({ children }: AppLayoutProps) {
   return (
     <SidebarProvider defaultOpen={true}>
       <div className="flex min-h-screen w-full">
-        <Sidebar variant="inset" className="bg-facebook-navy">
-          <SidebarHeader className="border-b border-facebook-dark/20">
+        <Sidebar variant="inset" className="bg-uber-black">
+          <SidebarHeader className="border-b border-uber-dark-grey/30">
             <div className="px-3 py-4 flex items-center gap-2">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white text-facebook-navy">
+              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-uber-green text-white">
                 <FileText size={20} />
               </div>
               <div className="text-white">
@@ -61,7 +61,7 @@ export function AppLayout({ children }: AppLayoutProps) {
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive("/")} tooltip="Dashboard" className="text-white hover:bg-facebook-dark">
+                    <SidebarMenuButton asChild isActive={isActive("/")} tooltip="Dashboard" className="text-white hover:bg-uber-dark-grey">
                       <Link to="/">
                         <Home />
                         <span>Dashboard</span>
@@ -69,7 +69,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive("/founders")} tooltip="Founder Gallery" className="text-white hover:bg-facebook-dark">
+                    <SidebarMenuButton asChild isActive={isActive("/founders")} tooltip="Founder Gallery" className="text-white hover:bg-uber-dark-grey">
                       <Link to="/founders">
                         <Users />
                         <span>Founder Gallery</span>
@@ -77,7 +77,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive("/resources")} tooltip="Resources" className="text-white hover:bg-facebook-dark">
+                    <SidebarMenuButton asChild isActive={isActive("/resources")} tooltip="Resources" className="text-white hover:bg-uber-dark-grey">
                       <Link to="/resources">
                         <FileText />
                         <span>Resources</span>
@@ -85,7 +85,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive("/alerts")} tooltip="Alerts" className="text-white hover:bg-facebook-dark">
+                    <SidebarMenuButton asChild isActive={isActive("/alerts")} tooltip="Alerts" className="text-white hover:bg-uber-dark-grey">
                       <Link to="/">
                         <Bell />
                         <span>Alerts</span>
@@ -93,7 +93,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive("/settings")} tooltip="Settings" className="text-white hover:bg-facebook-dark">
+                    <SidebarMenuButton asChild isActive={isActive("/settings")} tooltip="Settings" className="text-white hover:bg-uber-dark-grey">
                       <Link to="/">
                         <Settings />
                         <span>Settings</span>
@@ -109,7 +109,7 @@ export function AppLayout({ children }: AppLayoutProps) {
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild className="text-white hover:bg-facebook-dark">
+                    <SidebarMenuButton asChild className="text-white hover:bg-uber-dark-grey">
                       <div>
                         <Calendar className="text-white" />
                         <div>
@@ -121,7 +121,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild className="text-white hover:bg-facebook-dark">
+                    <SidebarMenuButton asChild className="text-white hover:bg-uber-dark-grey">
                       <div>
                         <Phone className="text-white" />
                         <div>
@@ -137,13 +137,13 @@ export function AppLayout({ children }: AppLayoutProps) {
             </SidebarGroup>
           </SidebarContent>
           
-          <SidebarFooter className="border-t border-facebook-dark/20">
+          <SidebarFooter className="border-t border-uber-dark-grey/30">
             <div className="p-3">
-              <SidebarMenuButton asChild className="text-white hover:bg-facebook-dark">
+              <SidebarMenuButton asChild className="text-white hover:bg-uber-dark-grey">
                 <div>
                   <Avatar className="h-9 w-9 border-2 border-white/20">
                     <AvatarImage src="https://github.com/shadcn.png" alt="User" />
-                    <AvatarFallback className="bg-facebook-dark text-white">JD</AvatarFallback>
+                    <AvatarFallback className="bg-uber-dark-grey text-white">JD</AvatarFallback>
                   </Avatar>
                   <div>
                     <span className="font-medium text-sm">John Doe</span>
@@ -156,7 +156,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           </SidebarFooter>
         </Sidebar>
         
-        <SidebarInset className="bg-facebook-grey">
+        <SidebarInset className="bg-uber-grey">
           <div className="flex flex-col h-full">
             {children}
           </div>
