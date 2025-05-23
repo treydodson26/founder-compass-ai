@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarInset } from "@/components/ui/sidebar";
@@ -20,7 +21,7 @@ export function AppLayout({
           <SidebarHeader className="border-b border-sidebar-border/30">
             <div className="px-3 py-6 flex flex-col items-center justify-center">
               <img 
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Pear_VC_logo.svg/120/Pear_VC_logo.svg.png"
+                src="/lovable-uploads/Pear_VC_logo.svg"
                 alt="Pear VC"
                 className="h-12 w-auto mb-2"
               />
