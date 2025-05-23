@@ -52,7 +52,7 @@ export function AppLayout({ children }: AppLayoutProps) {
               />
               <div className="text-white">
                 <h1 className="font-bold text-xl">Founder OS</h1>
-                <p className="text-xs opacity-80">Founder Management</p>
+                <p className="text-xs opacity-80">ABELIAN</p>
               </div>
             </div>
           </SidebarHeader>
