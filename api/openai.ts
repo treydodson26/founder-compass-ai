@@ -1,7 +1,6 @@
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
-import { Configuration, OpenAIApi } from 'https://esm.sh/openai@3.2.1';
-import 'https://deno.land/x/xhr@0.1.0/mod.ts';
+import OpenAI from 'https://esm.sh/openai@4.28.0';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -30,11 +29,10 @@ serve(async (req) => {
     
     console.log("OpenAI API Key found, initializing OpenAI");
     
-    // Initialize OpenAI
-    const configuration = new Configuration({
+    // Initialize OpenAI with v4 SDK
+    const openai = new OpenAI({
       apiKey: openAIApiKey,
     });
-    const openai = new OpenAIApi(configuration);
     
     // Parse request body
     const requestData = await req.json();
@@ -95,8 +93,9 @@ When you reference documents in your responses, wrap the reference in <span clas
     const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
     
     try {
-      const response = await openai.createChatCompletion({
-        model: 'gpt-4o',
+      // Using the v4 SDK syntax
+      const completion = await openai.chat.completions.create({
+        model: 'gpt-4o', // Using gpt-4o model as per your requirements
         messages: messages,
         temperature: 0.7,
         max_tokens: 1000,
@@ -108,7 +107,7 @@ When you reference documents in your responses, wrap the reference in <span clas
       // Return the response
       return new Response(
         JSON.stringify({ 
-          response: response.data.choices[0]?.message?.content || 'No response from AI' 
+          response: completion.choices[0]?.message?.content || 'No response from AI' 
         }),
         { 
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -121,12 +120,13 @@ When you reference documents in your responses, wrap the reference in <span clas
       throw apiError; // Re-throw to be caught by outer catch
     }
   } catch (error) {
-    console.error('Error:', error.message, error.stack);
+    console.error('Error:', error.message);
     
+    // Don't expose stack traces in production
     return new Response(
       JSON.stringify({ 
-        error: error.message || 'Internal server error',
-        stack: error.stack
+        error: 'Failed to process request',
+        message: error.message || 'Internal server error'
       }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },

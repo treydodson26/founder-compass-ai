@@ -73,6 +73,9 @@ export function useAiChat(founder: Founder) {
         role: 'ai', 
         content: "I'm sorry, I'm having trouble connecting right now. Please try again later or use the 'Load Demo' button to see example interactions." 
       };
+      
+      // Fix: Define updatedMessages here to resolve the TypeScript error
+      const updatedMessages = [...messages, { role: 'user', content: prompt }];
       setMessages([...updatedMessages, errorMessage]);
     } finally {
       setIsLoading(false);
