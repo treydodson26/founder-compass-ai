@@ -96,13 +96,29 @@ Milestones: ${founder.milestones.map(m => `${m.title} (${m.completed ? 'Complete
         throw new Error('No response data received from the AI service');
       }
       
-      if (!data.response) {
-        console.error('OpenAI Service - Invalid response format from OpenAI API:', data);
-        throw new Error(`Invalid response format from the AI service. Received: ${JSON.stringify(data)}`);
+      // Handle the response - it might be the raw OpenAI response or wrapped
+      let responseText = '';
+      
+      if (data.response) {
+        // Our edge function wrapped it
+        responseText = data.response;
+      } else if (data.choices && data.choices[0] && data.choices[0].message) {
+        // Raw OpenAI response
+        responseText = data.choices[0].message.content;
+      } else if (typeof data === 'string') {
+        // Direct string response
+        responseText = data;
+      } else {
+        console.error('OpenAI Service - Unexpected response format:', data);
+        throw new Error('Unexpected response format from the AI service');
       }
       
-      console.log('OpenAI Service - Successfully received response from OpenAI API');
-      return data.response;
+      if (!responseText) {
+        throw new Error('No response content received from the AI service');
+      }
+      
+      console.log('OpenAI Service - Successfully processed response');
+      return responseText;
     } catch (error) {
       console.error('OpenAI Service - Error in OpenAI service:', error);
       console.error('OpenAI Service - Error type:', typeof error);
