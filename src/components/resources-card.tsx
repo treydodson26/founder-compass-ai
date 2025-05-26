@@ -76,22 +76,6 @@ export function ResourcesCard({ founder, className }: ResourcesCardProps) {
       </Card>
     );
   }
-
-  if (error) {
-    return (
-      <Card className={className}>
-        <CardHeader>
-          <CardTitle className="text-lg">Context Library</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-center py-8">
-            <p className="text-red-500 text-sm mb-1">Error loading resources</p>
-            <p className="text-xs text-muted-foreground">{error.message}</p>
-          </div>
-        </CardContent>
-      </Card>
-    );
-  }
   
   return (
     <Card className={className}>
@@ -101,7 +85,16 @@ export function ResourcesCard({ founder, className }: ResourcesCardProps) {
       <CardContent>
         <div className="grid grid-cols-2 gap-4">
           {resources.map((resource) => {
-            const filteredResources = founderResources.filter(r => r.type === resource.type);
+            // If Supabase query failed, fall back to counts from founder object
+            let actualCount = resource.count;
+            let latestResource = null;
+            
+            if (!error && founderResources) {
+              const filteredResources = founderResources.filter(r => r.type === resource.type);
+              actualCount = filteredResources.length;
+              latestResource = filteredResources[0];
+            }
+            
             const IconComponent = resource.icon;
             return (
               <div 
@@ -115,13 +108,13 @@ export function ResourcesCard({ founder, className }: ResourcesCardProps) {
                   </div>
                   <div>
                     <p className="text-sm font-medium">{resource.name}</p>
-                    <p className="text-sm text-muted-foreground">{filteredResources.length} items</p>
+                    <p className="text-sm text-muted-foreground">{actualCount} items</p>
                   </div>
                 </div>
                 
-                {filteredResources.length > 0 && (
+                {latestResource && (
                   <div className="text-xs ml-1 text-muted-foreground">
-                    Latest: {filteredResources[0].title}
+                    Latest: {latestResource.title}
                   </div>
                 )}
               </div>
