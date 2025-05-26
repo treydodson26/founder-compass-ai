@@ -1,7 +1,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Resource } from "@/data/types";
+import { Resource, ResourceType } from "@/data/types";
 
 export function useResources(founderId?: string) {
   return useQuery({
@@ -33,7 +33,7 @@ export function useResources(founderId?: string) {
         founderId: resource.founder_id || '',
         title: resource.title,
         description: resource.description || '',
-        type: resource.type,
+        type: resource.type as ResourceType,
         fileUrl: resource.file_url || '',
         fileType: resource.file_type || '',
         thumbnailUrl: resource.thumbnail_url || '',
@@ -77,7 +77,7 @@ export function useResource(id: string) {
         founderId: resourceData.founder_id || '',
         title: resourceData.title,
         description: resourceData.description || '',
-        type: resourceData.type,
+        type: resourceData.type as ResourceType,
         fileUrl: resourceData.file_url || '',
         fileType: resourceData.file_type || '',
         thumbnailUrl: resourceData.thumbnail_url || '',

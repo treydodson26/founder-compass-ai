@@ -1,7 +1,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Founder, Milestone } from "@/data/types";
+import { Founder, Milestone, FounderStage, StatusType } from "@/data/types";
 
 export function useFounders() {
   return useQuery({
@@ -29,11 +29,11 @@ export function useFounders() {
         name: founder.name,
         companyName: founder.company_name,
         avatar: founder.avatar || 'https://i.pravatar.cc/150?img=1',
-        stage: founder.stage || 'Pre-Product',
+        stage: (founder.stage || 'Pre-Product') as FounderStage,
         arr: founder.arr || 0,
         firstInteraction: founder.first_interaction || new Date().toISOString(),
         lastInteraction: founder.last_interaction || new Date().toISOString(),
-        status: founder.status || 'On Track',
+        status: (founder.status || 'On Track') as StatusType,
         bio: founder.bio || '',
         resources: {
           documents: founder.documents_count || 0,
@@ -93,11 +93,11 @@ export function useFounder(id: string) {
         name: founderData.name,
         companyName: founderData.company_name,
         avatar: founderData.avatar || 'https://i.pravatar.cc/150?img=1',
-        stage: founderData.stage || 'Pre-Product',
+        stage: (founderData.stage || 'Pre-Product') as FounderStage,
         arr: founderData.arr || 0,
         firstInteraction: founderData.first_interaction || new Date().toISOString(),
         lastInteraction: founderData.last_interaction || new Date().toISOString(),
-        status: founderData.status || 'On Track',
+        status: (founderData.status || 'On Track') as StatusType,
         bio: founderData.bio || '',
         resources: {
           documents: founderData.documents_count || 0,
