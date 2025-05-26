@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
@@ -11,27 +12,74 @@ import {
   ArrowUpIcon, 
   ArrowDownIcon, 
   ArrowRightIcon,
-  BarChart3Icon
+  BarChart3Icon,
+  Loader2
 } from "lucide-react";
 import { FormattedCurrency } from "@/components/formatted-currency";
 import { TimeSince } from "@/components/time-since";
-import { pearVCFounders, getActiveFounders } from "@/data/pearVCFounders";
+import { useFounders } from "@/hooks/use-founders";
 
 export function Dashboard() {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
   
-  // Get active founders
-  const activeFounders = getActiveFounders();
+  // Fetch founders from Supabase
+  const { data: founders = [], isLoading, error } = useFounders();
+  
+  if (isLoading) {
+    return (
+      <div className="flex flex-col h-full">
+        <div className="border-b border-border/40">
+          <div className="container py-6">
+            <h1 className="text-3xl font-bold tracking-tight">Pear VC Portfolio Dashboard</h1>
+            <p className="text-muted-foreground">
+              Welcome back! Here's an overview of your portfolio companies.
+            </p>
+          </div>
+        </div>
+        
+        <div className="container py-6 flex-1 flex items-center justify-center">
+          <div className="flex items-center gap-2">
+            <Loader2 className="h-6 w-6 animate-spin" />
+            <span>Loading portfolio data...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col h-full">
+        <div className="border-b border-border/40">
+          <div className="container py-6">
+            <h1 className="text-3xl font-bold tracking-tight">Pear VC Portfolio Dashboard</h1>
+            <p className="text-muted-foreground">
+              Welcome back! Here's an overview of your portfolio companies.
+            </p>
+          </div>
+        </div>
+        
+        <div className="container py-6 flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-red-500 mb-2">Error loading portfolio data</p>
+            <p className="text-sm text-muted-foreground">{error.message}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
   
   // Calculate metrics for the dashboard
-  const totalFounders = pearVCFounders.length;
-  const healthyFounders = pearVCFounders.filter(f => f.status === "On Track").length;
+  const totalFounders = founders.length;
+  const healthyFounders = founders.filter(f => f.status === "On Track").length;
   
   // Calculate total ARR
-  const totalARR = pearVCFounders.reduce((sum, founder) => sum + founder.arr, 0);
+  const totalARR = founders.reduce((sum, founder) => sum + founder.arr, 0);
   
-  // Recent activity: founders with recent interactions
-  const recentFounders = activeFounders.slice(0, 5);
+  // Recent activity: founders with recent interactions (sorted by last interaction)
+  const recentFounders = [...founders]
+    .sort((a, b) => new Date(b.lastInteraction).getTime() - new Date(a.lastInteraction).getTime())
+    .slice(0, 5);
   
   return (
     <div className="flex flex-col h-full">

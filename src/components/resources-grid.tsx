@@ -3,12 +3,12 @@ import React, { useState, useMemo } from "react";
 import { ResourceCard } from "@/components/resource-card";
 import { ResourcesTable } from "@/components/resources-table";
 import { Input } from "@/components/ui/input";
-import { Resource, ResourceType } from "@/data/types";
-import { Search, X, Filter, LayoutGrid, List } from "lucide-react";
-import { resources } from "@/data/mockResources";
+import { ResourceType } from "@/data/types";
+import { Search, X, Filter, LayoutGrid, List, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { useResources } from "@/hooks/use-resources";
 
 // Define the extended resource type that includes "All"
 type FilterType = ResourceType | "All";
@@ -27,13 +27,11 @@ export function ResourcesGrid({ founderIdFilter, resourceTypeFilter, limit, clas
   
   const resourceTypes = ["All", "Document", "Call Recording", "Email Thread", "Meeting Note"] as const;
   
+  // Fetch resources from Supabase
+  const { data: resources = [], isLoading, error } = useResources(founderIdFilter);
+  
   const filteredResources = useMemo(() => {
     let filtered = resources;
-    
-    // Filter by founder if specified
-    if (founderIdFilter) {
-      filtered = filtered.filter(resource => resource.founderId === founderIdFilter);
-    }
     
     // Filter by type if specified and not "All"
     if (selectedType !== "All") {
@@ -54,13 +52,35 @@ export function ResourcesGrid({ founderIdFilter, resourceTypeFilter, limit, clas
     
     // Apply limit if specified
     return limit ? filtered.slice(0, limit) : filtered;
-  }, [founderIdFilter, resourceTypeFilter, selectedType, searchQuery, limit]);
+  }, [resources, selectedType, resourceTypeFilter, searchQuery, limit]);
 
   const clearSearch = () => {
     setSearchQuery("");
   };
 
   const hasActiveFilters = searchQuery || selectedType !== "All";
+  
+  if (isLoading) {
+    return (
+      <div className={cn("flex items-center justify-center py-16", className)}>
+        <div className="flex items-center gap-2">
+          <Loader2 className="h-6 w-6 animate-spin" />
+          <span>Loading resources...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={cn("flex items-center justify-center py-16", className)}>
+        <div className="text-center">
+          <p className="text-red-500 mb-2">Error loading resources</p>
+          <p className="text-sm text-muted-foreground">{error.message}</p>
+        </div>
+      </div>
+    );
+  }
   
   return (
     <div className={className}>

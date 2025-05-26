@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -6,7 +7,6 @@ import { SendHorizontal, Bot, Loader2 } from "lucide-react";
 import { Founder } from "@/data/types";
 import { cn } from "@/lib/utils";
 import { useAiChat, Message } from "@/hooks/use-ai-chat";
-import { ReferenceTag } from "@/components/reference-tag";
 
 interface AIChatProps {
   founder: Founder;

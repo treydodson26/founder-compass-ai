@@ -1,11 +1,11 @@
 
 import React from "react";
-import { FileText, MessageSquare, Mail, Calendar, ArrowRight } from "lucide-react";
+import { FileText, MessageSquare, Mail, Calendar, ArrowRight, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Founder } from "@/data/types";
 import { Button } from "@/components/ui/button";
-import { getFounderResources } from "@/data/mockResources";
 import { useNavigate } from "react-router-dom";
+import { useResources } from "@/hooks/use-resources";
 
 interface ResourcesCardProps {
   founder: Founder;
@@ -14,7 +14,7 @@ interface ResourcesCardProps {
 
 export function ResourcesCard({ founder, className }: ResourcesCardProps) {
   const navigate = useNavigate();
-  const founderResources = getFounderResources(founder.id);
+  const { data: founderResources = [], isLoading, error } = useResources(founder.id);
   
   const resources = [
     { 
@@ -59,6 +59,40 @@ export function ResourcesCard({ founder, className }: ResourcesCardProps) {
     navigate("/resources");
   };
   
+  if (isLoading) {
+    return (
+      <Card className={className}>
+        <CardHeader>
+          <CardTitle className="text-lg">Context Library</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center justify-center py-8">
+            <div className="flex items-center gap-2">
+              <Loader2 className="h-5 w-5 animate-spin" />
+              <span className="text-sm text-muted-foreground">Loading resources...</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (error) {
+    return (
+      <Card className={className}>
+        <CardHeader>
+          <CardTitle className="text-lg">Context Library</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-8">
+            <p className="text-red-500 text-sm mb-1">Error loading resources</p>
+            <p className="text-xs text-muted-foreground">{error.message}</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+  
   return (
     <Card className={className}>
       <CardHeader>
@@ -81,7 +115,7 @@ export function ResourcesCard({ founder, className }: ResourcesCardProps) {
                   </div>
                   <div>
                     <p className="text-sm font-medium">{resource.name}</p>
-                    <p className="text-sm text-muted-foreground">{resource.count} items</p>
+                    <p className="text-sm text-muted-foreground">{filteredResources.length} items</p>
                   </div>
                 </div>
                 

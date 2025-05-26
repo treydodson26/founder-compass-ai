@@ -365,31 +365,67 @@ export type Database = {
       founders: {
         Row: {
           arr: number | null
+          avatar: string | null
+          bio: string | null
+          call_recordings_count: number | null
+          churn_rate: number | null
           company_name: string
           created_at: string | null
           current_stage: string | null
+          customer_count: number | null
+          documents_count: number | null
+          email_threads_count: number | null
+          first_interaction: string | null
+          growth_rate: number | null
           id: string
+          last_interaction: string | null
+          meeting_notes_count: number | null
           name: string
+          stage: string | null
           status: string | null
           updated_at: string | null
         }
         Insert: {
           arr?: number | null
+          avatar?: string | null
+          bio?: string | null
+          call_recordings_count?: number | null
+          churn_rate?: number | null
           company_name: string
           created_at?: string | null
           current_stage?: string | null
+          customer_count?: number | null
+          documents_count?: number | null
+          email_threads_count?: number | null
+          first_interaction?: string | null
+          growth_rate?: number | null
           id?: string
+          last_interaction?: string | null
+          meeting_notes_count?: number | null
           name: string
+          stage?: string | null
           status?: string | null
           updated_at?: string | null
         }
         Update: {
           arr?: number | null
+          avatar?: string | null
+          bio?: string | null
+          call_recordings_count?: number | null
+          churn_rate?: number | null
           company_name?: string
           created_at?: string | null
           current_stage?: string | null
+          customer_count?: number | null
+          documents_count?: number | null
+          email_threads_count?: number | null
+          first_interaction?: string | null
+          growth_rate?: number | null
           id?: string
+          last_interaction?: string | null
+          meeting_notes_count?: number | null
           name?: string
+          stage?: string | null
           status?: string | null
           updated_at?: string | null
         }
@@ -493,6 +529,47 @@ export type Database = {
           Veteran?: string | null
         }
         Relationships: []
+      }
+      milestones: {
+        Row: {
+          completed: boolean | null
+          created_at: string | null
+          date: string | null
+          description: string | null
+          founder_id: string
+          id: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          completed?: boolean | null
+          created_at?: string | null
+          date?: string | null
+          description?: string | null
+          founder_id: string
+          id?: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          completed?: boolean | null
+          created_at?: string | null
+          date?: string | null
+          description?: string | null
+          founder_id?: string
+          id?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "milestones_founder_id_fkey"
+            columns: ["founder_id"]
+            isOneToOne: false
+            referencedRelation: "founders"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -684,7 +761,12 @@ export type Database = {
           associated_founder_ids: string[] | null
           created_at: string | null
           description: string | null
+          file_type: string | null
+          file_url: string | null
+          founder_id: string | null
           id: string
+          tags: string[] | null
+          thumbnail_url: string | null
           title: string
           type: string
           updated_at: string | null
@@ -694,7 +776,12 @@ export type Database = {
           associated_founder_ids?: string[] | null
           created_at?: string | null
           description?: string | null
+          file_type?: string | null
+          file_url?: string | null
+          founder_id?: string | null
           id?: string
+          tags?: string[] | null
+          thumbnail_url?: string | null
           title: string
           type: string
           updated_at?: string | null
@@ -704,13 +791,26 @@ export type Database = {
           associated_founder_ids?: string[] | null
           created_at?: string | null
           description?: string | null
+          file_type?: string | null
+          file_url?: string | null
+          founder_id?: string | null
           id?: string
+          tags?: string[] | null
+          thumbnail_url?: string | null
           title?: string
           type?: string
           updated_at?: string | null
           uploaded_at?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "resources_founder_id_fkey"
+            columns: ["founder_id"]
+            isOneToOne: false
+            referencedRelation: "founders"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       secrets: {
         Row: {
