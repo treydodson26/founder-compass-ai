@@ -47,6 +47,44 @@ export type Database = {
           },
         ]
       }
+      collaboration_history: {
+        Row: {
+          action_details: string | null
+          action_type: string | null
+          created_at: string | null
+          id: string
+          timestamp: string
+          user_email: string
+          workspace_inventory_id: string | null
+        }
+        Insert: {
+          action_details?: string | null
+          action_type?: string | null
+          created_at?: string | null
+          id?: string
+          timestamp: string
+          user_email: string
+          workspace_inventory_id?: string | null
+        }
+        Update: {
+          action_details?: string | null
+          action_type?: string | null
+          created_at?: string | null
+          id?: string
+          timestamp?: string
+          user_email?: string
+          workspace_inventory_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "collaboration_history_workspace_inventory_id_fkey"
+            columns: ["workspace_inventory_id"]
+            isOneToOne: false
+            referencedRelation: "workspace_inventory"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       companies: {
         Row: {
           cik: string
@@ -76,6 +114,41 @@ export type Database = {
           num_historical_years?: number | null
         }
         Relationships: []
+      }
+      content_tags: {
+        Row: {
+          auto_generated: boolean | null
+          created_at: string | null
+          id: string
+          tag_category: string | null
+          tag_name: string
+          workspace_inventory_id: string | null
+        }
+        Insert: {
+          auto_generated?: boolean | null
+          created_at?: string | null
+          id?: string
+          tag_category?: string | null
+          tag_name: string
+          workspace_inventory_id?: string | null
+        }
+        Update: {
+          auto_generated?: boolean | null
+          created_at?: string | null
+          id?: string
+          tag_category?: string | null
+          tag_name?: string
+          workspace_inventory_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_tags_workspace_inventory_id_fkey"
+            columns: ["workspace_inventory_id"]
+            isOneToOne: false
+            referencedRelation: "workspace_inventory"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       conversation_messages: {
         Row: {
@@ -148,6 +221,77 @@ export type Database = {
           metadata?: string | null
         }
         Relationships: []
+      }
+      email_metadata: {
+        Row: {
+          attachment_count: number | null
+          bcc_emails: string[] | null
+          cc_emails: string[] | null
+          created_at: string | null
+          custom_labels: string[] | null
+          has_attachments: boolean | null
+          id: string
+          is_important: boolean | null
+          is_read: boolean | null
+          is_starred: boolean | null
+          labels: Database["public"]["Enums"]["email_label"][] | null
+          message_id: string
+          recipient_emails: string[] | null
+          sender_email: string | null
+          sender_name: string | null
+          subject: string | null
+          thread_id: string | null
+          workspace_inventory_id: string | null
+        }
+        Insert: {
+          attachment_count?: number | null
+          bcc_emails?: string[] | null
+          cc_emails?: string[] | null
+          created_at?: string | null
+          custom_labels?: string[] | null
+          has_attachments?: boolean | null
+          id?: string
+          is_important?: boolean | null
+          is_read?: boolean | null
+          is_starred?: boolean | null
+          labels?: Database["public"]["Enums"]["email_label"][] | null
+          message_id: string
+          recipient_emails?: string[] | null
+          sender_email?: string | null
+          sender_name?: string | null
+          subject?: string | null
+          thread_id?: string | null
+          workspace_inventory_id?: string | null
+        }
+        Update: {
+          attachment_count?: number | null
+          bcc_emails?: string[] | null
+          cc_emails?: string[] | null
+          created_at?: string | null
+          custom_labels?: string[] | null
+          has_attachments?: boolean | null
+          id?: string
+          is_important?: boolean | null
+          is_read?: boolean | null
+          is_starred?: boolean | null
+          labels?: Database["public"]["Enums"]["email_label"][] | null
+          message_id?: string
+          recipient_emails?: string[] | null
+          sender_email?: string | null
+          sender_name?: string | null
+          subject?: string | null
+          thread_id?: string | null
+          workspace_inventory_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_metadata_workspace_inventory_id_fkey"
+            columns: ["workspace_inventory_id"]
+            isOneToOne: false
+            referencedRelation: "workspace_inventory"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       employees: {
         Row: {
@@ -812,6 +956,133 @@ export type Database = {
           },
         ]
       }
+      sec_extraction_jobs: {
+        Row: {
+          accession_number: string
+          cik: string
+          company_id: string | null
+          completed_at: string | null
+          created_at: string
+          document_url: string
+          error_message: string | null
+          extraction_method: string
+          form_type: string
+          id: string
+          started_at: string | null
+          status: string
+        }
+        Insert: {
+          accession_number: string
+          cik: string
+          company_id?: string | null
+          completed_at?: string | null
+          created_at?: string
+          document_url: string
+          error_message?: string | null
+          extraction_method: string
+          form_type: string
+          id?: string
+          started_at?: string | null
+          status?: string
+        }
+        Update: {
+          accession_number?: string
+          cik?: string
+          company_id?: string | null
+          completed_at?: string | null
+          created_at?: string
+          document_url?: string
+          error_message?: string | null
+          extraction_method?: string
+          form_type?: string
+          id?: string
+          started_at?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sec_extraction_jobs_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sec_financial_data: {
+        Row: {
+          accession_number: string
+          cik: string
+          company_id: string | null
+          confidence_score: number | null
+          created_at: string
+          extraction_method: string
+          filing_date: string
+          fiscal_period: string | null
+          fiscal_year: number | null
+          form_type: string
+          id: string
+          line_item_concept: string | null
+          line_item_name: string
+          period_end_date: string
+          source_url: string | null
+          statement_type: string
+          unit: string | null
+          updated_at: string
+          value: number | null
+        }
+        Insert: {
+          accession_number: string
+          cik: string
+          company_id?: string | null
+          confidence_score?: number | null
+          created_at?: string
+          extraction_method: string
+          filing_date: string
+          fiscal_period?: string | null
+          fiscal_year?: number | null
+          form_type: string
+          id?: string
+          line_item_concept?: string | null
+          line_item_name: string
+          period_end_date: string
+          source_url?: string | null
+          statement_type: string
+          unit?: string | null
+          updated_at?: string
+          value?: number | null
+        }
+        Update: {
+          accession_number?: string
+          cik?: string
+          company_id?: string | null
+          confidence_score?: number | null
+          created_at?: string
+          extraction_method?: string
+          filing_date?: string
+          fiscal_period?: string | null
+          fiscal_year?: number | null
+          form_type?: string
+          id?: string
+          line_item_concept?: string | null
+          line_item_name?: string
+          period_end_date?: string
+          source_url?: string | null
+          statement_type?: string
+          unit?: string | null
+          updated_at?: string
+          value?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sec_financial_data_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       secrets: {
         Row: {
           created_at: string | null
@@ -947,6 +1218,75 @@ export type Database = {
         }
         Relationships: []
       }
+      workspace_inventory: {
+        Row: {
+          content_text: string | null
+          content_type: Database["public"]["Enums"]["content_type"]
+          created_at: string | null
+          created_date: string | null
+          file_size: number | null
+          google_id: string
+          id: string
+          last_accessed: string | null
+          metadata: Json | null
+          mime_type: string | null
+          modified_date: string | null
+          owner_email: string | null
+          parent_folder_id: string | null
+          permissions: Json | null
+          shared_with: string[] | null
+          summary: string | null
+          synced_at: string | null
+          title: string
+          updated_at: string | null
+          url: string | null
+        }
+        Insert: {
+          content_text?: string | null
+          content_type: Database["public"]["Enums"]["content_type"]
+          created_at?: string | null
+          created_date?: string | null
+          file_size?: number | null
+          google_id: string
+          id?: string
+          last_accessed?: string | null
+          metadata?: Json | null
+          mime_type?: string | null
+          modified_date?: string | null
+          owner_email?: string | null
+          parent_folder_id?: string | null
+          permissions?: Json | null
+          shared_with?: string[] | null
+          summary?: string | null
+          synced_at?: string | null
+          title: string
+          updated_at?: string | null
+          url?: string | null
+        }
+        Update: {
+          content_text?: string | null
+          content_type?: Database["public"]["Enums"]["content_type"]
+          created_at?: string | null
+          created_date?: string | null
+          file_size?: number | null
+          google_id?: string
+          id?: string
+          last_accessed?: string | null
+          metadata?: Json | null
+          mime_type?: string | null
+          modified_date?: string | null
+          owner_email?: string | null
+          parent_folder_id?: string | null
+          permissions?: Json | null
+          shared_with?: string[] | null
+          summary?: string | null
+          synced_at?: string | null
+          title?: string
+          updated_at?: string | null
+          url?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -960,12 +1300,23 @@ export type Database = {
     Enums: {
       communication_log_status: "Sent" | "Failed" | "Pending"
       communication_type: "Email" | "SMS" | "InAppNotification"
+      content_type: "document" | "email" | "sheet" | "slide"
       document_category:
         | "Enrollment"
         | "Compliance"
         | "Student Record"
         | "Financial"
         | "Other"
+      email_label:
+        | "inbox"
+        | "sent"
+        | "drafts"
+        | "spam"
+        | "trash"
+        | "important"
+        | "starred"
+        | "archive"
+        | "custom"
       financial_transaction_type:
         | "TuitionCharge"
         | "FeeCharge"
@@ -1096,12 +1447,24 @@ export const Constants = {
     Enums: {
       communication_log_status: ["Sent", "Failed", "Pending"],
       communication_type: ["Email", "SMS", "InAppNotification"],
+      content_type: ["document", "email", "sheet", "slide"],
       document_category: [
         "Enrollment",
         "Compliance",
         "Student Record",
         "Financial",
         "Other",
+      ],
+      email_label: [
+        "inbox",
+        "sent",
+        "drafts",
+        "spam",
+        "trash",
+        "important",
+        "starred",
+        "archive",
+        "custom",
       ],
       financial_transaction_type: [
         "TuitionCharge",
