@@ -64,7 +64,6 @@ export function FounderHeader({ founder }: FounderHeaderProps) {
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-white">{founder.name}</h1>
             <div className="flex items-center gap-3 mt-2">
-              <p className="text-lg text-white/90 font-medium">{founder.companyName}</p>
               <StatusIndicator status={founder.status} showLabel />
             </div>
           </div>

@@ -18,8 +18,7 @@ export function FoundersGrid({ founders }: FoundersGridProps) {
       // Search filter
       const searchMatch = 
         search === "" || 
-        founder.name.toLowerCase().includes(search.toLowerCase()) ||
-        founder.companyName.toLowerCase().includes(search.toLowerCase());
+        founder.name.toLowerCase().includes(search.toLowerCase());
       
       // Stage filter
       const stageMatch = 

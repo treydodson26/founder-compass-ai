@@ -98,7 +98,7 @@ export function Dashboard() {
           <Card className="hover:shadow-md transition-all">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
-                Total Portfolio Companies
+                Total Students
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -136,7 +136,7 @@ export function Dashboard() {
                   <div className="text-xs text-muted-foreground">
                     <span className="text-green-500 inline-flex items-center">
                       <ArrowUpIcon className="h-3 w-3 mr-1" />
-                      Active portfolio
+                      Active
                     </span>
                   </div>
                 </div>
@@ -148,7 +148,7 @@ export function Dashboard() {
           <Card className="hover:shadow-md transition-all">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
-                Total Portfolio ARR
+                Total ARR
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -178,7 +178,7 @@ export function Dashboard() {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <ActivityIcon className="h-5 w-5 mr-2" />
-                Recent Portfolio Activity
+                Recent Activity
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -192,7 +192,6 @@ export function Dashboard() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
                         <p className="font-medium truncate">{founder.name}</p>
-                        <p className="text-sm text-muted-foreground truncate">({founder.companyName})</p>
                       </div>
                       <div className="flex items-center gap-2 mt-1">
                         <StageBadge stage={founder.stage} />

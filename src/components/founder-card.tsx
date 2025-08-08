@@ -56,7 +56,6 @@ export function FounderCard({ founder, className }: FounderCardProps) {
             </Avatar>
             <div>
               <h3 className="font-semibold text-lg leading-tight text-gray-900">{founder.name}</h3>
-              <p className="text-sm text-gray-500">{founder.companyName}</p>
             </div>
           </div>
           <StatusIndicator status={founder.status} />
